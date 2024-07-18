@@ -6,16 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SCtest1.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/SCtest2.unity
-    guid: 93416c7feaffbd541832b0c284bc5167
-  - enabled: 1
-    path: Assets/Scenes/TalkwithAI.unity
-    guid: 289dc65f98dcc1a46b5a3d86dc1d8676
-  - enabled: 1
-    path: Assets/Scenes/LoadingScene.unity
-    guid: 56c4549628a51f040a66cbe9ef267865
+    path: Assets/Scenes/Main.unity
+    guid: 625667d5bb23a5c4a91af13df5782eba
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
