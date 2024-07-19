@@ -184,7 +184,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: a44c99e3236382b49875c9f2793a95e9, type: 2}
+  m_MaterialTemplate: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 40508928}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1191,7 +1191,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a44c99e3236382b49875c9f2793a95e9, type: 2}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1914,6 +1914,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KCC Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 127830702192443093, guid: da9cf5d9cccaed93682b32c0ef741417, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1390547055558327689, guid: da9cf5d9cccaed93682b32c0ef741417, type: 3}
       propertyPath: kcc
       value: 
@@ -1927,6 +1931,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1390547055558327689, guid: da9cf5d9cccaed93682b32c0ef741417, type: 3}
+      propertyPath: UpDownSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1390547055558327689, guid: da9cf5d9cccaed93682b32c0ef741417, type: 3}
       propertyPath: _cameraUp.y
       value: 0
       objectReference: {fileID: 0}
@@ -1936,7 +1944,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1390547055558327689, guid: da9cf5d9cccaed93682b32c0ef741417, type: 3}
       propertyPath: _targetOffset.y
-      value: 1.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1390547055558327689, guid: da9cf5d9cccaed93682b32c0ef741417, type: 3}
+      propertyPath: _targetOffset.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2651950756675008449, guid: da9cf5d9cccaed93682b32c0ef741417, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3108,7 +3120,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: a44c99e3236382b49875c9f2793a95e9, type: 2}
+  m_MaterialTemplate: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -3756,7 +3768,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: a44c99e3236382b49875c9f2793a95e9, type: 2}
+  m_MaterialTemplate: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
