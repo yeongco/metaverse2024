@@ -8,11 +8,10 @@ public class NPCController : MonoBehaviour
     public float wanderRadius = 10f;
     public float wanderTimer = 5f;
     private bool isLookingAtPlayer = false;
-
+    private float timer;
 
     private NavMeshAgent agent;
     public Animator anim;
-    private float timer;
     public GameObject target;
 
     void Start()
