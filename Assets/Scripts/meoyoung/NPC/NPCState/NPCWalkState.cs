@@ -34,18 +34,27 @@ public class NPCWalkState : MonoBehaviour, INPCState
         if (_npcController)
         {
             Debug.Log("NPC Walk");
+
             // 정해진 시간만큼 이동했거나, 목적지에 도달했을 경우 idle 상태로 전환
             walkTimer += Time.deltaTime;
             if (walkTimer >= walkDuration)
             {
                 _npcController.ChangeState(_npcController._idleState);
             }
-
-            if (_npcController._navMeshAgent.remainingDistance <= _npcController._navMeshAgent.stoppingDistance)
+            else
             {
-                if (!_npcController._navMeshAgent.pathPending)
+                // E 키 입력 감지
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    _npcController.ChangeState(_npcController._idleState);
+                    _npcController.ChangeState(_npcController._lootatState);
+                }
+
+                if (_npcController._navMeshAgent.remainingDistance <= _npcController._navMeshAgent.stoppingDistance)
+                {
+                    if (!_npcController._navMeshAgent.pathPending)
+                    {
+                        _npcController.ChangeState(_npcController._idleState);
+                    }
                 }
             }
         }

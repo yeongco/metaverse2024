@@ -1135,7 +1135,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &341139774
+--- !u!114 &341139776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1144,13 +1144,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 341139771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9a605571935c648acb6371d4245fd6, type: 3}
+  m_Script: {fileID: 11500000, guid: bda342bc41ac5be43bf4f66534ea29a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 10
-  wanderTimer: 5
   anim: {fileID: 372390328}
   target: {fileID: 1947565366}
+  _characterController: {fileID: 0}
+  _navMeshAgent: {fileID: 0}
+  moveSpeed: 5
+  gravity: 20
 --- !u!1 &372390326 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1447104275903941039, guid: cd8e3c00b0f28f0419943b46a579c6fc, type: 3}
@@ -2062,7 +2064,7 @@ PrefabInstance:
       addedObject: {fileID: 341139773}
     - targetCorrespondingSourceObject: {fileID: 6470357823029104312, guid: cd8e3c00b0f28f0419943b46a579c6fc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 341139774}
+      addedObject: {fileID: 341139776}
     - targetCorrespondingSourceObject: {fileID: 1447104275903941039, guid: cd8e3c00b0f28f0419943b46a579c6fc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 372390328}

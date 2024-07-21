@@ -12,10 +12,18 @@ public class NPCIdleState : MonoBehaviour, INPCState
         if (!_npcController)
             _npcController = npcController;
         idleTimer = 0f;
+        _npcController._navMeshAgent.isStopped = true; // NPC ¿òÁ÷ÀÓ ¸ØÃã
     }
     public void OnStateUpdate()
     {
         Debug.Log("NPC Idle");
+
+        // E Å° ÀÔ·Â °¨Áö
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _npcController.ChangeState(_npcController._lootatState);
+        }
+
         idleTimer += Time.deltaTime;
         if (idleTimer >= idleDuration)
         {

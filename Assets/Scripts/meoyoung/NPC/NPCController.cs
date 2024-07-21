@@ -7,6 +7,8 @@ using UnityEngine.AI;
 public class NPCController : MonoBehaviour
 {
     public Animator anim;
+    public GameObject target;
+
     [HideInInspector]
     public CharacterController _characterController;
     [HideInInspector]
@@ -31,13 +33,14 @@ public class NPCController : MonoBehaviour
         get; set;
     }
 
-    public INPCState _idleState, _walkState;
+    public INPCState _idleState, _walkState, _lootatState;
 
 
     private void Start()
     {
         _idleState = gameObject.AddComponent<NPCIdleState>();
         _walkState = gameObject.AddComponent<NPCWalkState>();
+        _lootatState = gameObject.AddComponent<NPCLootAtState>();
 
         _characterController = GetComponent<CharacterController>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
