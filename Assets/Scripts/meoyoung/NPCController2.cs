@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NPCController : MonoBehaviour
+public class NPCController2 : MonoBehaviour
 {
     public float wanderRadius = 10f;
     public float wanderTimer = 5f;
