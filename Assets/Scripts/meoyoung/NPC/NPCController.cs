@@ -33,7 +33,7 @@ public class NPCController : MonoBehaviour
         get; set;
     }
 
-    public INPCState _idleState, _walkState, _lootatState;
+    public INPCState _idleState, _walkState, _lootatState, _nodState, _goodState, _badState, _thinkState;
 
 
     private void Start()
@@ -41,6 +41,10 @@ public class NPCController : MonoBehaviour
         _idleState = gameObject.AddComponent<NPCIdleState>();
         _walkState = gameObject.AddComponent<NPCWalkState>();
         _lootatState = gameObject.AddComponent<NPCLootAtState>();
+        _nodState = gameObject.AddComponent<NPCNodState>();
+        _thinkState = gameObject.AddComponent<NPCThinkState>();
+        _goodState = gameObject.AddComponent<NPCGoodState>();
+        _badState = gameObject.AddComponent<NPCBadState>();
 
         _characterController = GetComponent<CharacterController>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
