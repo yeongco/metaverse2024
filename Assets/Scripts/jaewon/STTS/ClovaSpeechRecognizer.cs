@@ -11,6 +11,8 @@ public class ClovaSpeechRecognizer : MonoBehaviour
     private string apiUrl = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=Kor";  // 올바른 API URL
     public string getResult;
     public GPT gpt;
+    public STTS_save save;
+
     public void SendAudioClip(string filePath)
     {
         StartCoroutine(UploadAudio(filePath));
@@ -34,6 +36,7 @@ public class ClovaSpeechRecognizer : MonoBehaviour
             string result = ExtractValueFromJson(request.downloadHandler.text);
             Debug.Log(result);
             getResult = result;
+            save.currentString += getResult + "/";
             gpt.isReadyToGetGPT = true;
             // 응답 처리
         }

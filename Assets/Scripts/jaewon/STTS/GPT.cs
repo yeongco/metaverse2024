@@ -3,6 +3,7 @@ using System.Collections;
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 
@@ -13,6 +14,7 @@ public class GPT : MonoBehaviour
     public ClovaSpeechRecognizer clovaSpeechRecognizer;
     public TTS tts;
     private string selectedPersonality;
+    public STTS_save save;
     private Dictionary<string, string> personalities = new Dictionary<string, string>()
     {
         {"ironman", "You are Tony Stark, a.k.a Iron Man. You are a genius, billionaire, playboy, and philanthropist. You have a witty and sarcastic tone."},
@@ -56,10 +58,10 @@ public class GPT : MonoBehaviour
             model = "gpt-4-turbo", // Use GPT-4 Turbo model
             messages = new[]
             {
-                new { role = "system", content = $"say {selectedPersonality},Number of letters do not over 100" },
+                new { role = "system", content = $"say {selectedPersonality},Number of letters do not over 500" },
                 new { role = "user", content = prompt }
             },
-            max_tokens = 300,
+            max_tokens = 500,
             temperature = 0.8
         };
 
@@ -81,6 +83,8 @@ public class GPT : MonoBehaviour
             Debug.Log("GPT 결과 : " + response.choices[0].message.content.Trim());
             tts.isReadyToTTS = true;
             result = response.choices[0].message.content.Trim();
+            save.currentString += result + "/";
+            Debug.Log("대화 내용 = "+save.currentString);
         }
         else
         {

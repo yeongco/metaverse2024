@@ -8,20 +8,22 @@ public class AudioRecorder : MonoBehaviour
     public ClovaSpeechRecognizer clovaSpeechRecognizer;
     public bool isRecording = false;
     public bool istalking = false;
+    public STTS_save save;
+
     void Start()
     {
         microphone = Microphone.devices[0];
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isRecording && save.stringGenerated)
         {
             istalking = true;
             isRecording = true;
             StartRecording();
             Debug.Log("≥Ï»≠ Ω√¿€");
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) && isRecording && save.stringGenerated)
         {
             StopRecording();
             isRecording = false;
