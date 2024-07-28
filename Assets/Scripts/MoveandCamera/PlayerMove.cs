@@ -14,7 +14,12 @@ public class PlayerMove : MonoBehaviour
     Vector3 dir;
 
     CharacterController cc;
+    Animator anim;
 
+    private void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
     void Start()
     {
         cc = GetComponent<CharacterController>();
@@ -33,10 +38,13 @@ public class PlayerMove : MonoBehaviour
         Vertic = Input.GetAxisRaw("Vertical");
 
         dir = new Vector3(Horizon, 0, Vertic).normalized;
+        anim.SetBool("IsWalk", dir != Vector3.zero);
         transform.LookAt(transform.position + dir);
         dir.y = yVelocity;
 
         cc.Move(dir * Speed * Time.deltaTime);
+
+        
     }
 
     private void OnTriggerEnter(Collider other)
