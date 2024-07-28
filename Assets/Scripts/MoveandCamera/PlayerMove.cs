@@ -39,16 +39,21 @@ public class PlayerMove : MonoBehaviour
         cc.Move(dir * Speed * Time.deltaTime);
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
+        PlayerCamera.normal = false;
         if (other.tag == "SkyViewZone")
-            PlayerCamera.viewsky();
+        {
+            PlayerCamera.sky = true;
+        }
+            
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "SkyViewZone")
         {
+            PlayerCamera.sky = false;
             PlayerCamera.normal = true;
         }
     }
