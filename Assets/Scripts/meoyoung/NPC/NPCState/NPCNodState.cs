@@ -11,6 +11,7 @@ public class NPCNodState : MonoBehaviour, INPCState
         if (!_npcController)
             _npcController = npcController;
 
+        _npcController.anim.SetBool("Nod", true);
         _npcController._navMeshAgent.isStopped = true; // NPC øÚ¡˜¿” ∏ÿ√„
     }
     public void OnStateUpdate()
@@ -24,7 +25,7 @@ public class NPCNodState : MonoBehaviour, INPCState
 
     public void OnStateExit()
     {
-
+        _npcController.anim.SetBool("Nod", false);
     }
 
 }
