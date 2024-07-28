@@ -11,6 +11,7 @@ public class NPCGoodState : MonoBehaviour, INPCState
         if (!_npcController)
             _npcController = npcController;
 
+        _npcController.anim.SetBool("Good", true);
         _npcController._navMeshAgent.isStopped = true; // NPC øÚ¡˜¿” ∏ÿ√„
     }
     public void OnStateUpdate()
@@ -24,7 +25,7 @@ public class NPCGoodState : MonoBehaviour, INPCState
 
     public void OnStateExit()
     {
-
+        _npcController.anim.SetBool("Good", false);
     }
 
 }

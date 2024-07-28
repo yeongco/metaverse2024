@@ -11,6 +11,7 @@ public class NPCThinkState : MonoBehaviour, INPCState
         if (!_npcController)
             _npcController = npcController;
 
+        _npcController.anim.SetBool("Think", true);
         _npcController._navMeshAgent.isStopped = true; // NPC øÚ¡˜¿” ∏ÿ√„
     }
     public void OnStateUpdate()
@@ -28,7 +29,7 @@ public class NPCThinkState : MonoBehaviour, INPCState
 
     public void OnStateExit()
     {
-
+        _npcController.anim.SetBool("Think", false);
     }
 
 }
