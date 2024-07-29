@@ -14,6 +14,8 @@ public class PlayerCamera : MonoBehaviour
     public Vector3 Skyangle = new Vector3(30f, 0f, 0f);
     
     public static bool normal = true;
+    public static bool sky = false;
+
 
     public static Action viewsky;
     public static Action viewquad;
@@ -39,18 +41,10 @@ public class PlayerCamera : MonoBehaviour
         {
             ViewQuad();
         }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("enter");
-
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        Debug.Log("exit");
-        normal = true;
+        else if (sky)
+        {
+            ViewSky();
+        }
     }
 
     void ViewQuad()
@@ -62,7 +56,6 @@ public class PlayerCamera : MonoBehaviour
 
     void ViewSky()
     {
-        normal = false;
         Vector3 capsule = cc.transform.position;
         transform.position = Vector3.Lerp(transform.position, capsule + Skyposition, Time.deltaTime * Lerppercentage);
         transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, Skyangle, Time.deltaTime * Lerppercentage);

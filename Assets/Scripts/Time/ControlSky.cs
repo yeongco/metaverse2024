@@ -20,6 +20,9 @@ public class ControlSky : MonoBehaviour
     float sunriseSecond;
     [SerializeField]
     float sunsetSecond;
+    public Light sun;
+    public Light moon;
+
 
     private void Start()
     {
@@ -27,8 +30,20 @@ public class ControlSky : MonoBehaviour
         NowSecond = startHour * 60 * 60;
         sunriseSecond = sunriseHour * 60 * 60;
         sunsetSecond = sunsetHour * 60 * 60;
-        RenderSettings.skybox.SetFloat("_Blend", 0);
+        if (NowSecond >= sunriseSecond && NowSecond < sunsetSecond)
+        {
+            RenderSettings.skybox.SetFloat("_Blend", 0);
+            sun.intensity = 0.7f;
+            moon.intensity = 0.0f;
+        }
+        else
+        {
+            RenderSettings.skybox.SetFloat("_Blend", 1);
+            sun.intensity = 0.0f;
+            moon.intensity = 0.6f;
+        }
         StartCoroutine(Timer());
+        StartCoroutine(SunMove());
 
     }
 
@@ -56,6 +71,8 @@ public class ControlSky : MonoBehaviour
             StartCoroutine(SunSet());
         }
         RenderSettings.skybox.SetFloat("_Rotation", Time.time);
+        if (NowSecond >= sunriseSecond && NowSecond < sunsetSecond)
+            StartCoroutine(SunMove());
     }
 
     IEnumerator SunRise()
@@ -66,6 +83,8 @@ public class ControlSky : MonoBehaviour
         while (elapsedTime < duration)
         {
             RenderSettings.skybox.SetFloat("_Blend", Mathf.Lerp(1.0f, 0.0f, elapsedTime / duration));
+            sun.intensity = Mathf.Lerp(0.0f, 0.7f, elapsedTime / duration);
+            moon.intensity = Mathf.Lerp(0.6f, 0.0f, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -80,9 +99,31 @@ public class ControlSky : MonoBehaviour
         while (elapsedTime < duration)
         {
             RenderSettings.skybox.SetFloat("_Blend", Mathf.Lerp(0.0f, 1.0f, elapsedTime / duration));
+            sun.intensity = Mathf.Lerp(0.7f, 0.0f, elapsedTime / duration);
+            moon.intensity = Mathf.Lerp(0.0f, 0.6f, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
         RenderSettings.skybox.SetFloat("_Blend", 1.0f);
+    }
+
+    IEnumerator SunMove()
+    {
+        if (NowSecond >= sunriseSecond && NowSecond < sunsetSecond)
+        {
+            float dayProgress = (NowSecond - sunriseSecond) / (sunsetSecond - sunriseSecond);
+            float NowRotation = Mathf.Lerp(0.0f, 180.0f, dayProgress);
+            sun.transform.eulerAngles = new Vector3(NowRotation, 30.0f, 0.0f);
+            float limit_time = (sunsetSecond - NowSecond) / GameSecond + 10.0f;
+            float elapsedTime = 0.0f;
+            while (elapsedTime < limit_time)
+            {
+                float targetRotation = Mathf.Lerp(NowRotation, 180.0f, elapsedTime / limit_time);
+                sun.transform.eulerAngles = new Vector3(targetRotation, 30.0f, 0.0f);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            // 태양을 부드럽게 회전시킴
+        }
     }
 }
