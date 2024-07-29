@@ -33,14 +33,14 @@ public class ControlSky : MonoBehaviour
         if (NowSecond >= sunriseSecond && NowSecond < sunsetSecond)
         {
             RenderSettings.skybox.SetFloat("_Blend", 0);
-            sun.intensity = 1.0f;
+            sun.intensity = 0.7f;
             moon.intensity = 0.0f;
         }
         else
         {
             RenderSettings.skybox.SetFloat("_Blend", 1);
             sun.intensity = 0.0f;
-            moon.intensity = 0.9f;
+            moon.intensity = 0.6f;
         }
         StartCoroutine(Timer());
         StartCoroutine(SunMove());
@@ -83,8 +83,8 @@ public class ControlSky : MonoBehaviour
         while (elapsedTime < duration)
         {
             RenderSettings.skybox.SetFloat("_Blend", Mathf.Lerp(1.0f, 0.0f, elapsedTime / duration));
-            sun.intensity = Mathf.Lerp(0.0f, 1.0f, elapsedTime / duration);
-            moon.intensity = Mathf.Lerp(0.9f, 0.0f, elapsedTime / duration);
+            sun.intensity = Mathf.Lerp(0.0f, 0.7f, elapsedTime / duration);
+            moon.intensity = Mathf.Lerp(0.6f, 0.0f, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -99,8 +99,8 @@ public class ControlSky : MonoBehaviour
         while (elapsedTime < duration)
         {
             RenderSettings.skybox.SetFloat("_Blend", Mathf.Lerp(0.0f, 1.0f, elapsedTime / duration));
-            sun.intensity = Mathf.Lerp(1.0f, 0.0f, elapsedTime / duration);
-            moon.intensity = Mathf.Lerp(0.0f, 0.9f, elapsedTime / duration);
+            sun.intensity = Mathf.Lerp(0.7f, 0.0f, elapsedTime / duration);
+            moon.intensity = Mathf.Lerp(0.0f, 0.6f, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
