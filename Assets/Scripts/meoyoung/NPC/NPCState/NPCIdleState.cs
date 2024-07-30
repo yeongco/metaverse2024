@@ -16,13 +16,13 @@ public class NPCIdleState : MonoBehaviour, INPCState
     }
     public void OnStateUpdate()
     {
-        Debug.Log("NPC Idle");
+        //Debug.Log("NPC Idle");
 
-        // E 키 입력 감지
+        /*// E 키 입력 감지
         if (Input.GetKeyDown(KeyCode.E))
         {
             _npcController.ChangeState(_npcController._lootatState);
-        }
+        }*/
 
         idleTimer += Time.deltaTime;
         if (idleTimer >= idleDuration)

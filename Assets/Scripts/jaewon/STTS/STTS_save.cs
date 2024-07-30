@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using UnityEngine.UI;
 public class STTS_save : MonoBehaviour
 {
+
     public string currentString;
     public bool stringGenerated = false;
     public string dialoge;
