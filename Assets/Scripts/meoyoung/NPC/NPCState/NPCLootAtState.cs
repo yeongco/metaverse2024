@@ -16,9 +16,12 @@ public class NPCLootAtState : MonoBehaviour, INPCState
 
         lookTimer = 0;
     }
+
+    //target을 바라보는 lookat 상태. target을 3초동안 쳐다본 후 walkState로 전이
+    // q키를 누르면 nod 상태로 전이
     public void OnStateUpdate()
     {
-        Debug.Log("NPC LootAt Q");
+        //Debug.Log("NPC LootAt Q");
         if (Input.GetKeyDown(KeyCode.Q))
         {
             _npcController.ChangeState(_npcController._nodState);
