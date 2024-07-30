@@ -6,12 +6,13 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
-
+using UnityEngine.UI;
 public class STTS_save : MonoBehaviour
 {
     public string currentString;
     public bool stringGenerated = false;
     public string dialoge;
+    public Text diary;
     void Update()
     {
         // 'E' Ű�� ������ ���� ����
@@ -63,7 +64,7 @@ public class STTS_save : MonoBehaviour
             model = "gpt-4-turbo", // Use GPT-4 Turbo model
             messages = new[]
             {
-                new { role = "system", content = $"�־��� ��ȭ�� ������ �ִ� �ϱ��������� �������" },
+                new { role = "system", content = $"Analyze the conversation in {prompt} and write it in the form of a diary in korean." },
                 new { role = "user", content = prompt }
             },
             max_tokens = 2000,
@@ -85,7 +86,8 @@ public class STTS_save : MonoBehaviour
         {
             var jsonResponse = request.downloadHandler.text;
             var response = JsonConvert.DeserializeObject<OpenAIResponse>(jsonResponse);
-            Debug.Log("GPT �ϱ� ��� ��� : " + response.choices[0].message.content.Trim());
+            Debug.Log("GPT diary : " + response.choices[0].message.content.Trim());
+            diary.text = response.choices[0].message.content.Trim();
         }
         else
         {

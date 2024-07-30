@@ -23,7 +23,7 @@ public class GPT : MonoBehaviour
     };
     private void Start()
     {
-        SelectPersonality(this.gameObject.name);
+        SelectPersonality("ironman");
         Debug.Log(selectedPersonality);
     }
     public void Update()
@@ -58,7 +58,7 @@ public class GPT : MonoBehaviour
             model = "gpt-4-turbo", // Use GPT-4 Turbo model
             messages = new[]
             {
-                new { role = "system", content = $"say {selectedPersonality},Number of letters do not over 500" },
+                new { role = "system", content = $"say {selectedPersonality},Number of letters do not over 200 in korean" },
                 new { role = "user", content = prompt }
             },
             max_tokens = 500,
