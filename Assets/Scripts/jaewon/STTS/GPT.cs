@@ -14,6 +14,7 @@ public class GPT : MonoBehaviour
     public ClovaSpeechRecognizer clovaSpeechRecognizer;
     public TTS tts;
     private string selectedPersonality;
+    private string apiKey;
     public STTS_save save;
     private Dictionary<string, string> personalities = new Dictionary<string, string>()
     {
@@ -21,11 +22,23 @@ public class GPT : MonoBehaviour
         {"friendly", "You are a friendly and helpful assistant, always ready to provide support with a warm and cheerful demeanor."},
         {"professional", "You are a professional advisor, providing clear and concise information in a formal tone."}
     };
+
     private void Start()
     {
+        // 환경 변수에서 API 키를 읽어옴
+        apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+
+        // API 키가 설정되지 않은 경우 에러 메시지 출력
+        if (string.IsNullOrEmpty(apiKey))
+        {
+            Debug.LogError("API key is not set in environment variables.");
+            return;
+        }
+
         SelectPersonality("ironman");
         Debug.Log(selectedPersonality);
     }
+
     public void Update()
     {
         if (isReadyToGetGPT)
@@ -34,6 +47,7 @@ public class GPT : MonoBehaviour
             StartCoroutine(SendRequestToGPT(clovaSpeechRecognizer.getResult));
         }
     }
+
     private void SelectPersonality(string a)
     {
         if (a.Contains("ironman"))
@@ -58,7 +72,7 @@ public class GPT : MonoBehaviour
             model = "gpt-4-turbo", // Use GPT-4 Turbo model
             messages = new[]
             {
-                new { role = "system", content = $"say {selectedPersonality},Number of letters do not over 200 in korean" },
+                new { role = "system", content = $"say {selectedPersonality}, Number of letters do not over 200 in korean" },
                 new { role = "user", content = prompt }
             },
             max_tokens = 500,
@@ -72,6 +86,14 @@ public class GPT : MonoBehaviour
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
+
+        // API 키가 null이거나 빈 문자열인지 확인
+        if (string.IsNullOrEmpty(apiKey))
+        {
+            Debug.LogError("API key is null or empty.");
+            yield break;
+        }
+
         request.SetRequestHeader("Authorization", "Bearer " + apiKey);
 
         yield return request.SendWebRequest();
@@ -84,7 +106,7 @@ public class GPT : MonoBehaviour
             tts.isReadyToTTS = true;
             result = response.choices[0].message.content.Trim();
             save.currentString += result + "/";
-            Debug.Log("대화 내용 = "+save.currentString);
+            Debug.Log("대화 내용 = " + save.currentString);
         }
         else
         {

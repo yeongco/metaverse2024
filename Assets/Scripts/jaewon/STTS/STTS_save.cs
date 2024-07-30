@@ -13,7 +13,20 @@ public class STTS_save : MonoBehaviour
     public string currentString;
     public bool stringGenerated = false;
     public string dialoge;
+    private string apiKey;
     public Text diary;
+    private void Start()
+    {
+        apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+
+        // API 키가 설정되지 않은 경우 에러 메시지 출력
+        if (string.IsNullOrEmpty(apiKey))
+        {
+            Debug.LogError("API key is not set in environment variables.");
+            return;
+        }
+
+    }
     void Update()
     {
         // 'E' Ű�� ������ ���� ����
