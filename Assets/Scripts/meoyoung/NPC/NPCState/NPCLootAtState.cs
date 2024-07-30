@@ -15,11 +15,16 @@ public class NPCLootAtState : MonoBehaviour, INPCState
         _npcController.anim.SetBool("LootAt", true);
 
         lookTimer = 0;
-
     }
     public void OnStateUpdate()
     {
-        Debug.Log("NPC LootAt");
+        Debug.Log("NPC LootAt Q");
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _npcController.ChangeState(_npcController._nodState);
+        }
+
+
         if (lookTimer >= 3f)
         {
             _npcController.ChangeState(_npcController._walkState);
