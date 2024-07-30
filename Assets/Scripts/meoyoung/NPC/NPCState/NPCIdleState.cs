@@ -14,15 +14,10 @@ public class NPCIdleState : MonoBehaviour, INPCState
         idleTimer = 0f;
         _npcController._navMeshAgent.isStopped = true; // NPC 움직임 멈춤
     }
+    // Idle State가 된지 3초가 지나면 walkState로 전이
     public void OnStateUpdate()
     {
         //Debug.Log("NPC Idle");
-
-        /*// E 키 입력 감지
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            _npcController.ChangeState(_npcController._lootatState);
-        }*/
 
         idleTimer += Time.deltaTime;
         if (idleTimer >= idleDuration)

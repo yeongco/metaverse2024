@@ -14,6 +14,8 @@ public class NPCGoodState : MonoBehaviour, INPCState
         _npcController.anim.SetBool("Good", true);
         _npcController._navMeshAgent.isStopped = true; // NPC 움직임 멈춤
     }
+
+    // Q키를 누르면 lookatState로 전이
     public void OnStateUpdate()
     {
         Debug.Log("NPC Good Q");

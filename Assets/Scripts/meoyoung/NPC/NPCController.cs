@@ -36,6 +36,7 @@ public class NPCController : MonoBehaviour
     public INPCState _idleState, _walkState, _lootatState, _nodState, _goodState, _badState, _thinkState;
 
 
+    // NPC가 전이될 수 있는 상태에 대한 스크립트를 불러온 후, 초기 상태를 Idle State로 변환
     private void Start()
     {
         _idleState = gameObject.AddComponent<NPCIdleState>();
