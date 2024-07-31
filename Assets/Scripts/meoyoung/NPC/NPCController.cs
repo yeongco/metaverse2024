@@ -17,7 +17,7 @@ public class NPCController : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 5f;    
     public float gravity = 20f;
-
+    public bool availableMov = true;
     public float CurrentSpeed
     {
         get; set;
@@ -51,20 +51,25 @@ public class NPCController : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
 
         CurrentState = _idleState;
+        if (availableMov)
         ChangeState(CurrentState);
     }
 
     private void Update()
     {
+        if(availableMov)
         UpdateState();
     }
 
     public void ChangeState(INPCState playerState)
     {
-        if (CurrentState != null)
-            CurrentState.OnStateExit();
-        CurrentState = playerState;
-        CurrentState.OnStateEnter(this);
+        if (availableMov)
+        {
+            if (CurrentState != null)
+                CurrentState.OnStateExit();
+            CurrentState = playerState;
+            CurrentState.OnStateEnter(this);
+        }
     }
 
     public void UpdateState()

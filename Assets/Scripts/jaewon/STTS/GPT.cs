@@ -16,9 +16,10 @@ public class GPT : MonoBehaviour
     private string selectedPersonality;
     private string apiKey;
     public STTS_save save;
+    public PlayerCanSee playerCanSee;
     private Dictionary<string, string> personalities = new Dictionary<string, string>()
     {
-        {"ironman", "You are Tony Stark, a.k.a Iron Man. You are a genius, billionaire, playboy, and philanthropist. You have a witty and sarcastic tone."},
+        {"yuna", "바닷가 근처 카페 개업이라는 꿈을 품고 도시 직장 생활을 정리 해 이곳으로 온 30대 여성. 고민을 잘 들어주며 감성적인 말을 잘한다./성격:INFJ, 조용한, 낭만을 향유, 애늙은이/좋아하는 것:정적인, 독서, 낭만, 재즈, 풍경화 그리기/싫어하는 것:경쟁, 정신없는 것"},
         {"friendly", "You are a friendly and helpful assistant, always ready to provide support with a warm and cheerful demeanor."},
         {"professional", "You are a professional advisor, providing clear and concise information in a formal tone."}
     };
@@ -35,7 +36,7 @@ public class GPT : MonoBehaviour
             return;
         }
 
-        SelectPersonality("ironman");
+        SelectPersonality(playerCanSee.closestObject.gameObject.name);
         Debug.Log(selectedPersonality);
     }
 
@@ -50,9 +51,9 @@ public class GPT : MonoBehaviour
 
     private void SelectPersonality(string a)
     {
-        if (a.Contains("ironman"))
+        if (a.Contains("yuna"))
         {
-            selectedPersonality = personalities["ironman"];
+            selectedPersonality = personalities["yuna"];
         }
         else if (a.Contains("friendly"))
         {

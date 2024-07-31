@@ -1,16 +1,23 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class PlayerCanSee : MonoBehaviour
 {
     public float detectionAngle = 40f;
     public float detectionDistance = 10f;
-    public Color detectionZoneColor = new Color(1, 0, 0, 0.3f); // Åõ¸íÇÑ »¡°£»ö
-
-    private GameObject closestObject = null;
-
+    public Color detectionZoneColor = new Color(1, 0, 0, 0.3f); // íˆ¬ëª…í•œ ë¹¨ê°„ìƒ‰
+    public GameObject STTS;
+    public GameObject closestObject = null;
+    private PlayerMove playerMove;
+    public GameObject STTSChatUI;
+    private void Start()
+    {
+        STTS.gameObject.SetActive(false);
+        playerMove = this.gameObject.GetComponent<PlayerMove>();
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -19,9 +26,9 @@ public class PlayerCanSee : MonoBehaviour
         }
     }
 
-    // ÇÃ·¹ÀÌ¾îÀÇ °¨Áö ¹İ°æ¿¡ µé¾î¿Â ¸ğµç ¿ÀºêÁ§Æ®¸¦ hitColliders¿¡ ÀúÀå
-    // °¢°¢ÀÇ hitColliders ¸¶´Ù NPC¶ó´Â ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®Áß °Å¸®°¡ °¡±î¿î ¿ÀºêÁ§Æ®¸¦ closestObject¿¡ ÀúÀå
-    // closestObjectÀÇ State¸¦ lookat state·Î ÀüÈ¯
+    // í”Œë ˆì´ì–´ì˜ ê°ì§€ ë°˜ê²½ì— ë“¤ì–´ì˜¨ ëª¨ë“  ì˜¤ë¸Œì íŠ¸ë¥¼ hitCollidersì— ì €ì¥
+    // ê°ê°ì˜ hitColliders ë§ˆë‹¤ NPCë¼ëŠ” íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì¤‘ ê±°ë¦¬ê°€ ê°€ê¹Œìš´ ì˜¤ë¸Œì íŠ¸ë¥¼ closestObjectì— ì €ì¥
+    // closestObjectì˜ Stateë¥¼ lookat stateë¡œ ì „í™˜
     void DetectAndMoveObject()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionDistance);
@@ -49,13 +56,17 @@ public class PlayerCanSee : MonoBehaviour
 
         if (closestObject != null)
         {
+            Debug.Log(closestObject.gameObject.name);
             NPCController _npcController = closestObject.GetComponent<NPCController>();
             _npcController.ChangeState(_npcController._lootatState);
+            STTS.gameObject.SetActive(true);
+            SetMovementUnAvailable();
+            SetSTTSUI(true);
         }
     }
 
-    // ÇÃ·¹ÀÌ¾îÀÇ Å½Áö ¹İ°æÀ» È­¸é¿¡ Ãâ·ÂÇÔ
-    // ·±Å¸ÀÓ ÀÌÈÄ´Â Ãâ·ÂµÇÁö ¾ÊÀ½
+    // í”Œë ˆì´ì–´ì˜ íƒì§€ ë°˜ê²½ì„ í™”ë©´ì— ì¶œë ¥í•¨
+    // ëŸ°íƒ€ì„ ì´í›„ëŠ” ì¶œë ¥ë˜ì§€ ì•ŠìŒ
     void OnDrawGizmos()
     {
         Gizmos.color = detectionZoneColor;
@@ -69,9 +80,55 @@ public class PlayerCanSee : MonoBehaviour
     }
 
 
-    // LogÃ¢¿¡ ÇÃ·¹ÀÌ¾î¿¡°Ô Å½ÁöµÈ NPC Ãâ·Â
+    // Logì°½ì— í”Œë ˆì´ì–´ì—ê²Œ íƒì§€ëœ NPC ì¶œë ¥
     void GetClosestObject()
     {
         Debug.Log(closestObject);
+    }
+    //ëŒ€í™” ìƒëŒ€ê°€ ê°ì§€ë˜ë©´ í”Œë ˆì´ì–´ì˜ ì›€ì§ì„ì„ ëŒ€í™” ì¢…ë£Œê¹Œì§€ ê¸ˆì§€,NPCëŠ” ìƒíƒœë¥¼ idleë¡œ ê³ ì •, ê°ì¢… ì›€ì§ì„ì— ê´€ì—¬í•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸, ì»´í¬ë„ŒíŠ¸ ë¹„í™œì„±í™”
+    void SetMovementUnAvailable()
+    {
+        playerMove.dir = Vector3.zero;
+        playerMove.enabled = false;
+        this.gameObject.GetComponent<CharacterController>().enabled = false;
+        this.gameObject.GetComponentInChildren<Animator>().SetBool("IsWalk", false);
+
+        closestObject.gameObject.GetComponent<NavMeshAgent>().isStopped = true; // NPC ì›€ì§ì„ ë©ˆì¶¤
+        closestObject.gameObject.GetComponent<NPCController>().CurrentState = gameObject.AddComponent<NPCIdleState>();
+        closestObject.gameObject.GetComponent<NPCController>().enabled = false;
+        StartCoroutine(RotateTowardsTarget(closestObject, this.gameObject));
+        StartCoroutine(RotateTowardsTarget(this.gameObject, closestObject));
+    }
+    void SetSTTSUI(bool set)
+    {
+        STTS.SetActive(set);
+        STTSChatUI.SetActive(set);
+    }
+    private IEnumerator RotateTowardsTarget(GameObject a, GameObject b)
+    {
+        while (true)
+        {
+            // íƒ€ê²Ÿ ë°©í–¥ ê³„ì‚°
+            Vector3 direction = (b.transform.position - a.transform.position).normalized;
+
+            // íšŒì „í•  ê°ë„ ê³„ì‚°
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+
+            // í˜„ì¬ íšŒì „ê³¼ ëª©í‘œ íšŒì „ ì‚¬ì´ì˜ ê°ë„ ì°¨ì´ ê³„ì‚°
+            float angleDifference = Quaternion.Angle(a.transform.rotation, lookRotation);
+
+            // ê°ë„ ì°¨ì´ê°€ ì„ê³„ê°’ ì´í•˜ì¸ì§€ í™•ì¸
+            if (angleDifference < 5)
+            {
+                // ì„ê³„ê°’ ì´í•˜ì´ë©´ íšŒì „ì„ ë©ˆì¶¤
+                yield break;
+            }
+
+            // ì ì§„ì ìœ¼ë¡œ íšŒì „
+            a.transform.rotation = Quaternion.Slerp(a.transform.rotation, lookRotation, Time.deltaTime * 7);
+
+            // í•œ í”„ë ˆì„ ëŒ€ê¸°
+            yield return null;
+        }
     }
 }

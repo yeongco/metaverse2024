@@ -78,7 +78,7 @@ public class STTS_save : MonoBehaviour
             model = "gpt-4-turbo", // Use GPT-4 Turbo model
             messages = new[]
             {
-                new { role = "system", content = $"Analyze the conversation in {prompt} and write it in the form of a diary in korean." },
+                new { role = "system", content = $"{prompt}의 대화를 유추해서 한국어로 50~70단어의 일기를 작성해줘" },
                 new { role = "user", content = prompt }
             },
             max_tokens = 2000,

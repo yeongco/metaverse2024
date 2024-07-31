@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviour
     float Vertic;
     float yVelocity;
 
-    Vector3 dir;
+    public Vector3 dir;
 
     CharacterController cc;
     Animator anim;
