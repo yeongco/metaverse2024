@@ -19,7 +19,7 @@ public class NPCNodState : MonoBehaviour, INPCState
     public void OnStateUpdate()
     {
         //Debug.Log("NPC Nod Q");
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             _npcController.ChangeState(_npcController._thinkState);
         }

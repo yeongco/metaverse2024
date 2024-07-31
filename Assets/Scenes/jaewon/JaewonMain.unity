@@ -9653,6 +9653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 3
   gravity: -9.81
+  dir: {x: 0, y: 0, z: 0}
 --- !u!54 &860942753
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11834,6 +11835,11 @@ MonoBehaviour:
   stringGenerated: 0
   dialoge: 
   diary: {fileID: 2059982446}
+  STTS: {fileID: 344086125}
+  STTSUI: {fileID: 470427340}
+  playerMove: {fileID: 860942752}
+  playerCanSee: {fileID: 860942755}
+  player: {fileID: 860942746}
 --- !u!4 &1058923516
 Transform:
   m_ObjectHideFlags: 0
@@ -25214,8 +25220,9 @@ MonoBehaviour:
   target: {fileID: 818470133}
   _characterController: {fileID: 0}
   _navMeshAgent: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 3
   gravity: 20
+  availableMov: 1
 --- !u!95 &1765649863
 Animator:
   serializedVersion: 7

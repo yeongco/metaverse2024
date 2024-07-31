@@ -88,7 +88,6 @@ public class PlayerCanSee : MonoBehaviour
     //대화 상대가 감지되면 플레이어의 움직임을 대화 종료까지 금지,NPC는 상태를 idle로 고정, 각종 움직임에 관여하는 스크립트, 컴포넌트 비활성화
     void SetMovementUnAvailable()
     {
-        playerMove.dir = Vector3.zero;
         playerMove.enabled = false;
         this.gameObject.GetComponent<CharacterController>().enabled = false;
         this.gameObject.GetComponentInChildren<Animator>().SetBool("IsWalk", false);
@@ -109,8 +108,8 @@ public class PlayerCanSee : MonoBehaviour
         while (true)
         {
             // 타겟 방향 계산
-            Vector3 direction = (b.transform.position - a.transform.position).normalized;
-
+            Vector3 c = (b.transform.position - a.transform.position).normalized;
+            Vector3 direction = new Vector3(c.x, 0, c.z).normalized;
             // 회전할 각도 계산
             Quaternion lookRotation = Quaternion.LookRotation(direction);
 

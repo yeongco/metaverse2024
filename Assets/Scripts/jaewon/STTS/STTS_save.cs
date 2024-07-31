@@ -15,6 +15,11 @@ public class STTS_save : MonoBehaviour
     public string dialoge;
     private string apiKey;
     public Text diary;
+    public GameObject STTS;
+    public GameObject STTSUI;
+    public PlayerMove playerMove;
+    public PlayerCanSee playerCanSee;
+    public GameObject player;
     private void Start()
     {
         apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
@@ -25,29 +30,40 @@ public class STTS_save : MonoBehaviour
             Debug.LogError("API key is not set in environment variables.");
             return;
         }
-
+        // 'E' Ű�� ������ ���� ����
+        if (!stringGenerated)
+        {
+            // ���ο� ���ڿ� ����
+            currentString = GenerateNewString();
+            Debug.Log("New string generated: " + currentString);
+            stringGenerated = true;
+        }
+        else
+        {
+            // ���ڿ��� ���Ͽ� �߰�
+            //AppendStringToFile(currentString);
+            stringGenerated = false;
+            dialoge = currentString;
+            StartCoroutine(SendRequestToGPT(dialoge));
+        }
     }
     void Update()
     {
-        // 'E' Ű�� ������ ���� ����
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!stringGenerated)
-            {
-                // ���ο� ���ڿ� ����
-                currentString = GenerateNewString();
-                Debug.Log("New string generated: " + currentString);
-                stringGenerated = true;
-            }
-            else
-            {
-                // ���ڿ��� ���Ͽ� �߰�
-                AppendStringToFile(currentString);
-                Debug.Log("String appended: " + currentString);
-                stringGenerated = false;
-                dialoge = currentString;
-                StartCoroutine(SendRequestToGPT(dialoge));
-            }
+            Debug.Log("녹화종료");
+            Debug.Log("String appended: " + currentString);
+            AppendStringToFile(currentString);
+            STTS.gameObject.SetActive(false);
+            STTSUI.gameObject.SetActive(false);
+
+            playerMove.enabled = true;
+            player.GetComponent<CharacterController>().enabled = true;
+            player.GetComponentInChildren<Animator>().SetBool("IsWalk", true);
+
+            playerCanSee.closestObject.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().isStopped = false;
+            playerCanSee.closestObject.GetComponent<NPCController>().CurrentState = gameObject.AddComponent<NPCWalkState>();
+            playerCanSee.closestObject.GetComponent<NPCController>().enabled = true;
         }
     }
 

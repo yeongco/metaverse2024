@@ -19,7 +19,7 @@ public class GPT : MonoBehaviour
     public PlayerCanSee playerCanSee;
     private Dictionary<string, string> personalities = new Dictionary<string, string>()
     {
-        {"yuna", "바닷가 근처 카페 개업이라는 꿈을 품고 도시 직장 생활을 정리 해 이곳으로 온 30대 여성. 고민을 잘 들어주며 감성적인 말을 잘한다./성격:INFJ, 조용한, 낭만을 향유, 애늙은이/좋아하는 것:정적인, 독서, 낭만, 재즈, 풍경화 그리기/싫어하는 것:경쟁, 정신없는 것"},
+        {"yuna", "이름은 유나, 바닷가 근처 카페 개업이라는 꿈을 품고 도시 직장 생활을 정리 해 이곳으로 온 30대 여성. 고민을 잘 들어주며 감성적인 말을 잘한다./성격:INFJ, 조용한, 낭만을 향유, 애늙은이/좋아하는 것:정적인, 독서, 낭만, 재즈, 풍경화 그리기/싫어하는 것:경쟁, 정신없는 것"},
         {"friendly", "You are a friendly and helpful assistant, always ready to provide support with a warm and cheerful demeanor."},
         {"professional", "You are a professional advisor, providing clear and concise information in a formal tone."}
     };
@@ -73,7 +73,7 @@ public class GPT : MonoBehaviour
             model = "gpt-4-turbo", // Use GPT-4 Turbo model
             messages = new[]
             {
-                new { role = "system", content = $"say {selectedPersonality}, Number of letters do not over 200 in korean" },
+                new { role = "system", content = $"{selectedPersonality}의 추론된 성격과 말투로 말해줘, 한국어로 20단어를 넘기지 말아줘" },
                 new { role = "user", content = prompt }
             },
             max_tokens = 500,

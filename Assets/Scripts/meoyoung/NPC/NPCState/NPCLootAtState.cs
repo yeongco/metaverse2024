@@ -22,7 +22,7 @@ public class NPCLootAtState : MonoBehaviour, INPCState
     public void OnStateUpdate()
     {
         //Debug.Log("NPC LootAt Q");
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             _npcController.ChangeState(_npcController._nodState);
         }
