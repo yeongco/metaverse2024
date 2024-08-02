@@ -6,6 +6,7 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using UnityEngine.UI;
 
 public class GPT : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GPT : MonoBehaviour
     public bool isReadyToGetGPT = false;
     public ClovaSpeechRecognizer clovaSpeechRecognizer;
     public TTS tts;
+    public Text instruction;
     private string selectedPersonality;
     private string apiKey;
     public STTS_save save;
@@ -73,7 +75,7 @@ public class GPT : MonoBehaviour
             model = "gpt-4-turbo", // Use GPT-4 Turbo model
             messages = new[]
             {
-                new { role = "system", content = $"{selectedPersonality}의 추론된 성격과 말투로 말해줘, 한국어로 20단어를 넘기지 말아줘" },
+                new { role = "system", content = $"너는 {selectedPersonality}의 성격과 말투로 말하는 사람이야. 한국어로 20단어를 넘기지 말아줘" },
                 new { role = "user", content = prompt }
             },
             max_tokens = 500,
@@ -106,6 +108,9 @@ public class GPT : MonoBehaviour
             Debug.Log("GPT 결과 : " + response.choices[0].message.content.Trim());
             tts.isReadyToTTS = true;
             result = response.choices[0].message.content.Trim();
+            TalkingUICon.instance.isGenerating = false;
+            TalkingUICon.instance.isTTS = true;
+            instruction.text = result;
             save.currentString += result + "/";
             Debug.Log("대화 내용 = " + save.currentString);
         }

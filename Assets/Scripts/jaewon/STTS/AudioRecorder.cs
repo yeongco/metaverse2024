@@ -6,29 +6,28 @@ public class AudioRecorder : MonoBehaviour
     private AudioClip audioClip;
     private string microphone;
     public ClovaSpeechRecognizer clovaSpeechRecognizer;
-    public bool isRecording = false;
-    public bool istalking = false;
     public STTS_save save;
-
+    
     void Start()
     {
         microphone = Microphone.devices[0];
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isRecording && save.stringGenerated)
+        if (Input.GetKeyDown(KeyCode.Space) && !TalkingUICon.instance.isRecording && save.stringGenerated)
         {
-            istalking = true;
-            isRecording = true;
+            TalkingUICon.instance.istalking = true;
+            TalkingUICon.instance.isRecording = true;
             StartRecording();
             Debug.Log("≥Ï»≠ Ω√¿€");
         }
-        if (Input.GetKeyUp(KeyCode.Space) && isRecording && save.stringGenerated)
+        if (Input.GetKeyUp(KeyCode.Space) && TalkingUICon.instance.isRecording && save.stringGenerated)
         {
             StopRecording();
-            isRecording = false;
             Debug.Log("≥Ï»≠ ¡æ∑·");
             clovaSpeechRecognizer.SendAudioClip(Application.persistentDataPath + "/audio.wav");
+            TalkingUICon.instance.isRecording = false;
+            TalkingUICon.instance.isGenerating = true;
         }
     }
     public void StartRecording()

@@ -19,7 +19,9 @@ public class STTS_save : MonoBehaviour
     public GameObject STTSUI;
     public PlayerMove playerMove;
     public PlayerCanSee playerCanSee;
+    public TalkingUICon talkingUICon;
     public GameObject player;
+    private string diaries = null;
     private void Start()
     {
         apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
@@ -54,19 +56,20 @@ public class STTS_save : MonoBehaviour
             Debug.Log("녹화종료");
             Debug.Log("String appended: " + currentString);
             AppendStringToFile(currentString);
-            STTS.gameObject.SetActive(false);
-            STTSUI.gameObject.SetActive(false);
 
             playerMove.enabled = true;
             player.GetComponent<CharacterController>().enabled = true;
             player.GetComponentInChildren<Animator>().SetBool("IsWalk", true);
 
             playerCanSee.closestObject.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().isStopped = false;
-            playerCanSee.closestObject.GetComponent<NPCController>().CurrentState = gameObject.AddComponent<NPCWalkState>();
             playerCanSee.closestObject.GetComponent<NPCController>().enabled = true;
+            playerCanSee.closestObject.GetComponent<NPCController>().CurrentState = playerCanSee.closestObject.GetComponent<NPCWalkState>();
+            playerCanSee.closestObject.GetComponent<NPCController>().anim.SetBool("LootAt", false);
+            playerCanSee.closestObject = null;
+            talkingUICon.isWaiting = true;
+            StartCoroutine(SendRequestToGPT(dialoge));
         }
     }
-
     // ���ο� ���ڿ��� �����ϴ� �޼ҵ�
     string GenerateNewString()
     {
@@ -85,6 +88,17 @@ public class STTS_save : MonoBehaviour
 
         Debug.Log("String appended to: " + path);
     }
+    void AppendDiaryToFile(string str)
+    {
+        // ���� ���� ��� ����
+        string path = Path.Combine(Application.persistentDataPath, "savedDiaries.txt");
+
+        // ���ڿ��� ���Ͽ� �߰�
+        File.AppendAllText(path, str + "\n");
+
+        Debug.Log("String appended to: " + path);
+    }
+
     //
     public IEnumerator SendRequestToGPT(string prompt)
     {
@@ -94,7 +108,7 @@ public class STTS_save : MonoBehaviour
             model = "gpt-4-turbo", // Use GPT-4 Turbo model
             messages = new[]
             {
-                new { role = "system", content = $"{prompt}의 대화를 유추해서 한국어로 50~70단어의 일기를 작성해줘" },
+                new { role = "system", content = $"{prompt}의 대화를 유추해서 한국어로 50~70단어의 일기로 작성해줘. 일기가 충분치 않으면 그냥 '일기 없음' 으로 표기해줘" },
                 new { role = "user", content = prompt }
             },
             max_tokens = 2000,
@@ -118,12 +132,15 @@ public class STTS_save : MonoBehaviour
             var response = JsonConvert.DeserializeObject<OpenAIResponse>(jsonResponse);
             Debug.Log("GPT diary : " + response.choices[0].message.content.Trim());
             diary.text = response.choices[0].message.content.Trim();
+            AppendDiaryToFile(response.choices[0].message.content.Trim());
         }
         else
         {
             Debug.LogError("Error: " + request.error);
             Debug.LogError("Response: " + request.downloadHandler.text);
         }
+        STTS.gameObject.SetActive(false);
+        STTSUI.gameObject.SetActive(false);
     }
 
     [Serializable]

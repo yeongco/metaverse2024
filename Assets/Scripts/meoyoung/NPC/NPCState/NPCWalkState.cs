@@ -43,12 +43,6 @@ public class NPCWalkState : MonoBehaviour, INPCState
             }
             else
             {
-                /*// E 키 입력 감지
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    _npcController.ChangeState(_npcController._lootatState);
-                }*/
-
                 if (_npcController._navMeshAgent.remainingDistance <= _npcController._navMeshAgent.stoppingDistance)
                 {
                     if (!_npcController._navMeshAgent.pathPending)
@@ -61,8 +55,8 @@ public class NPCWalkState : MonoBehaviour, INPCState
     }
     public void OnStateExit()
     {
-        _npcController.anim.SetBool("Walk", false);
-        _npcController._navMeshAgent.isStopped = true;
+       _npcController._navMeshAgent.isStopped = true;
+       _npcController.anim.SetBool("Walk", false);
     }
 
 }
