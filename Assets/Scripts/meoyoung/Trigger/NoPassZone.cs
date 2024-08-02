@@ -12,6 +12,7 @@ public class NoPassZone : MonoBehaviour
     public string message = "거긴 아직 지나갈 수 없는 곳이야";
     private bool isInteracting = false;
 
+    // 플레이어가 현재 이 오브젝트와 일정 거리에 있는 상태에서 E키를 누르면 텍스트 표시
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && !isInteracting)
@@ -27,6 +28,7 @@ public class NoPassZone : MonoBehaviour
         }
     }
 
+    // 키보드로 메세지 보여주는 연출
     IEnumerator ShowMessage(string message)
     {
         isInteracting = true;
