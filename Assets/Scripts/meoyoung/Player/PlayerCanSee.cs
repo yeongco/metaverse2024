@@ -6,6 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class PlayerCanSee : MonoBehaviour
 {
+    public static PlayerCanSee instance;
     public float detectionAngle = 40f;
     public float detectionDistance = 10f;
     public Color detectionZoneColor = new Color(1, 0, 0, 0.3f); // 투명한 빨간색
@@ -15,6 +16,14 @@ public class PlayerCanSee : MonoBehaviour
     public GameObject STTSChatUI;
     private void Start()
     {
+        if (instance != null)
+        {
+            GameObject.Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
         STTS.gameObject.SetActive(false);
         playerMove = this.gameObject.GetComponent<PlayerMove>();
     }
@@ -57,8 +66,7 @@ public class PlayerCanSee : MonoBehaviour
         if (closestObject != null)
         {
             Debug.Log(closestObject.gameObject.name);
-            NPCController _npcController = closestObject.GetComponent<NPCController>();
-            _npcController.ChangeState(_npcController._lootatState);
+            closestObject.GetComponent<NPCController>().ChangeState(closestObject.GetComponent<NPCController>()._lootatState);
             STTS.gameObject.SetActive(true);
             SetMovementUnAvailable();
             SetSTTSUI(true);
@@ -93,7 +101,7 @@ public class PlayerCanSee : MonoBehaviour
         this.gameObject.GetComponentInChildren<Animator>().SetBool("IsWalk", false);
 
         closestObject.gameObject.GetComponent<NavMeshAgent>().isStopped = true; // NPC 움직임 멈춤
-        closestObject.gameObject.GetComponent<NPCController>().CurrentState = gameObject.AddComponent<NPCIdleState>();
+        closestObject.gameObject.GetComponent<NPCController>().CurrentState = gameObject.GetComponent<NPCIdleState>();
         closestObject.gameObject.GetComponent<NPCController>().enabled = false;
         StartCoroutine(RotateTowardsTarget(closestObject, this.gameObject));
         StartCoroutine(RotateTowardsTarget(this.gameObject, closestObject));

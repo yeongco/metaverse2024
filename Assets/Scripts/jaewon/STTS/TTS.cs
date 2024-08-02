@@ -11,6 +11,7 @@ public class TTS : MonoBehaviour
     public bool isReadyToTTS = false;
     public GPT gpt;
     public AudioRecorder audioRecorder;
+    Coroutine a;
     public void Start()
     {
         TextToSpeech("작동 시작");
@@ -25,6 +26,7 @@ public class TTS : MonoBehaviour
     }
     public void TextToSpeech(string sentence)
     {
+
         AudioSource audio = GetComponent<AudioSource>();
 
         // API 발급하고 받은 client_id, client_secret 작성
@@ -66,10 +68,20 @@ public class TTS : MonoBehaviour
             audioClip.SetData(f, 0);
             audio.clip = audioClip;
             audio.Play();
-            audioRecorder.istalking = false;
+            TalkingUICon.instance.isGenerating = false;
+            TalkingUICon.instance.isTTS = true;
+            a = null;
+            if (a == null) StartCoroutine(SetisTTS());
         }
     }
-
+    public IEnumerator SetisTTS()
+    {
+        yield return new WaitForSecondsRealtime(3.0f);
+        TalkingUICon.instance.isTTS = false;
+        TalkingUICon.instance.istalking = false;
+        TalkingUICon.instance.isWaiting = true;
+        a = null;
+    }
     private float[] ConvertByteToFloat(byte[] array)
     {
         float[] floatArr = new float[array.Length / 2];

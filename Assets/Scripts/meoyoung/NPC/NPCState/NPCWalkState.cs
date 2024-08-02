@@ -61,8 +61,8 @@ public class NPCWalkState : MonoBehaviour, INPCState
     }
     public void OnStateExit()
     {
-        _npcController.anim.SetBool("Walk", false);
-        _npcController._navMeshAgent.isStopped = true;
+       _npcController._navMeshAgent.isStopped = true;
+       _npcController.anim.SetBool("Walk", false);
     }
 
 }
