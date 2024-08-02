@@ -96,7 +96,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AtmosphereThickness: 0.48
-    - _Blend: 0
+    - _Blend: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -113,7 +113,11 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+<<<<<<< HEAD
+    - _Rotation: 17.701433
+=======
     - _Rotation: 51.407104
+>>>>>>> 03c100519f3acc76d83eb920a2386bb150113f81
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

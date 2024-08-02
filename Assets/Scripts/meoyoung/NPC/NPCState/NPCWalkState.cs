@@ -43,12 +43,6 @@ public class NPCWalkState : MonoBehaviour, INPCState
             }
             else
             {
-                /*// E 키 입력 감지
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    _npcController.ChangeState(_npcController._lootatState);
-                }*/
-
                 if (_npcController._navMeshAgent.remainingDistance <= _npcController._navMeshAgent.stoppingDistance)
                 {
                     if (!_npcController._navMeshAgent.pathPending)
