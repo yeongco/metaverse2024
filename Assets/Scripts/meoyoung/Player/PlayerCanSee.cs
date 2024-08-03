@@ -66,7 +66,7 @@ public class PlayerCanSee : MonoBehaviour
         if (closestObject != null)
         {
             Debug.Log(closestObject.gameObject.name);
-            closestObject.GetComponent<NPCController>().ChangeState(closestObject.GetComponent<NPCController>()._lootatState);
+            //closestObject.GetComponent<NPCController>().ChangeState(closestObject.GetComponent<NPCController>()._lootatState);
             STTS.gameObject.SetActive(true);
             SetMovementUnAvailable();
             SetSTTSUI(true);
@@ -100,9 +100,9 @@ public class PlayerCanSee : MonoBehaviour
         this.gameObject.GetComponent<CharacterController>().enabled = false;
         this.gameObject.GetComponentInChildren<Animator>().SetBool("IsWalk", false);
 
-        closestObject.gameObject.GetComponent<NavMeshAgent>().isStopped = true; // NPC 움직임 멈춤
+        //closestObject.gameObject.GetComponent<NavMeshAgent>().isStopped = true; // NPC 움직임 멈춤
         closestObject.gameObject.GetComponent<NPCController>().CurrentState = gameObject.GetComponent<NPCIdleState>();
-        closestObject.gameObject.GetComponent<NPCController>().enabled = false;
+        //closestObject.gameObject.GetComponent<NPCController>().enabled = false;
         StartCoroutine(RotateTowardsTarget(closestObject, this.gameObject));
         StartCoroutine(RotateTowardsTarget(this.gameObject, closestObject));
     }

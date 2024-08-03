@@ -64,7 +64,7 @@ public class TalkingUICon : MonoBehaviour
         if (istalking && isTTS)
         {
             Recording.gameObject.SetActive(false);
-            npcController.ChangeState(npcController._goodState);
+            npcController.ChangeState(npcController._lootatState);
         }
     }
 }

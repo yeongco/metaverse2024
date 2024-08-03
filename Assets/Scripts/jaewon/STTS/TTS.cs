@@ -14,7 +14,7 @@ public class TTS : MonoBehaviour
     Coroutine a;
     public void Start()
     {
-        TextToSpeech("작동 시작");
+        TextToSpeech("안녕하세요?");
     }
     public void Update()
     {
