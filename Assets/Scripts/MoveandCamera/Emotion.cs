@@ -53,26 +53,26 @@ public class MouseDirectionAnimation : MonoBehaviour
         if (angle >= -45 && angle < 45)
         {
             // 오른쪽 방향 애니메이션
-            animator.SetTrigger("Right");
-            Debug.Log("r");
+            animator.SetTrigger("Dance");
+            Debug.Log("Dance");
         }
         else if (angle >= 45 && angle < 135)
         {
             // 위쪽 방향 애니메이션
-            animator.SetTrigger("Up");
-            Debug.Log("u");
+            animator.SetTrigger("Enjoy");
+            Debug.Log("Enjoy");
         }
         else if (angle >= -135 && angle < -45)
         {
             // 아래쪽 방향 애니메이션
-            animator.SetTrigger("Down");
-            Debug.Log("d");
+            animator.SetTrigger("Angry");
+            Debug.Log("Angry");
         }
         else
         {
             // 왼쪽 방향 애니메이션
-            animator.SetTrigger("Left");
-            Debug.Log("left");
+            animator.SetTrigger("Sad");
+            Debug.Log("Sad");
         }
     }
 }

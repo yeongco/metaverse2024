@@ -22,6 +22,10 @@ public class ControlSky : MonoBehaviour
     float sunsetSecond;
     public Light sun;
     public Light moon;
+    public Light bojo1;
+    public Light bojo2;
+    public Light bojo3;
+    public Light bojo4;
 
 
     private void Start()
@@ -34,12 +38,20 @@ public class ControlSky : MonoBehaviour
         {
             RenderSettings.skybox.SetFloat("_Blend", 0);
             sun.intensity = 0.7f;
+            bojo1.intensity = 0.4f;
+            bojo2.intensity = 0.4f;
+            bojo3.intensity = 0.4f;
+            bojo4.intensity = 0.4f;
             moon.intensity = 0.0f;
         }
         else
         {
             RenderSettings.skybox.SetFloat("_Blend", 1);
             sun.intensity = 0.0f;
+            bojo1.intensity = 0.2f;
+            bojo2.intensity = 0.2f;
+            bojo3.intensity = 0.2f;
+            bojo4.intensity = 0.2f;
             moon.intensity = 0.6f;
         }
         StartCoroutine(Timer());
@@ -85,6 +97,10 @@ public class ControlSky : MonoBehaviour
             RenderSettings.skybox.SetFloat("_Blend", Mathf.Lerp(1.0f, 0.0f, elapsedTime / duration));
             sun.intensity = Mathf.Lerp(0.0f, 0.7f, elapsedTime / duration);
             moon.intensity = Mathf.Lerp(0.6f, 0.0f, elapsedTime / duration);
+            bojo1.intensity = Mathf.Lerp(0.2f, 0.4f, elapsedTime / duration);
+            bojo2.intensity = Mathf.Lerp(0.2f, 0.4f, elapsedTime / duration);
+            bojo3.intensity = Mathf.Lerp(0.2f, 0.4f, elapsedTime / duration);
+            bojo4.intensity = Mathf.Lerp(0.2f, 0.4f, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -101,6 +117,10 @@ public class ControlSky : MonoBehaviour
             RenderSettings.skybox.SetFloat("_Blend", Mathf.Lerp(0.0f, 1.0f, elapsedTime / duration));
             sun.intensity = Mathf.Lerp(0.7f, 0.0f, elapsedTime / duration);
             moon.intensity = Mathf.Lerp(0.0f, 0.6f, elapsedTime / duration);
+            bojo2.intensity = Mathf.Lerp(0.4f, 0.2f, elapsedTime / duration);
+            bojo3.intensity = Mathf.Lerp(0.4f, 0.2f, elapsedTime / duration);
+            bojo4.intensity = Mathf.Lerp(0.4f, 0.2f, elapsedTime / duration);
+            bojo1.intensity = Mathf.Lerp(0.4f, 0.2f, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
