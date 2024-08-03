@@ -56,13 +56,14 @@ public class TalkingUICon : MonoBehaviour
 
         if(istalking && isGenerating)
         {
-            Recording.gameObject.SetActive(false);
             Debug.Log("답변 생성 중...");
             instruction.text = "답변 생성 중...";
             npcController.ChangeState(npcController._thinkState);
+            Recording.gameObject.SetActive(false);
         }
-        if(istalking && isTTS)
+        if (istalking && isTTS)
         {
+            Recording.gameObject.SetActive(false);
             npcController.ChangeState(npcController._goodState);
         }
     }
