@@ -27,7 +27,6 @@ public class NPCLootAtState : MonoBehaviour, INPCState
             _npcController.ChangeState(_npcController._nodState);
         }
 
-
         if (lookTimer >= 3f)
         {
             _npcController.ChangeState(_npcController._walkState);
