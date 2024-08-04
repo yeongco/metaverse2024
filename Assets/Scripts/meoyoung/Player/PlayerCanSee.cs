@@ -24,7 +24,6 @@ public class PlayerCanSee : MonoBehaviour
         {
             instance = this;
         }
-        STTS.gameObject.SetActive(false);
         playerMove = this.gameObject.GetComponent<PlayerMove>();
     }
     void Update()
@@ -67,7 +66,7 @@ public class PlayerCanSee : MonoBehaviour
         {
             Debug.Log(closestObject.gameObject.name);
             //closestObject.GetComponent<NPCController>().ChangeState(closestObject.GetComponent<NPCController>()._lootatState);
-            STTS.gameObject.SetActive(true);
+            //STTS.gameObject.SetActive(true);
             SetMovementUnAvailable();
             SetSTTSUI(true);
         }
@@ -102,7 +101,7 @@ public class PlayerCanSee : MonoBehaviour
 
         //closestObject.gameObject.GetComponent<NavMeshAgent>().isStopped = true; // NPC 움직임 멈춤
         closestObject.gameObject.GetComponent<NPCController>().CurrentState = gameObject.GetComponent<NPCIdleState>();
-        //closestObject.gameObject.GetComponent<NPCController>().enabled = false;
+        closestObject.gameObject.GetComponent<NPCController>().enabled = false;
         StartCoroutine(RotateTowardsTarget(closestObject, this.gameObject));
         StartCoroutine(RotateTowardsTarget(this.gameObject, closestObject));
     }

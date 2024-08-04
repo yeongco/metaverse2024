@@ -22,7 +22,7 @@ public class GPT : MonoBehaviour
     private Dictionary<string, string> personalities = new Dictionary<string, string>()
     {
         {"nyuna", "이름은 유나, 바닷가 근처 카페 개업이라는 꿈을 품고 도시 직장 생활을 정리 해 이곳으로 온 30대 여성. 고민을 잘 들어주며 감성적인 말을 잘한다./성격:INFJ, 조용한, 낭만을 향유, 애늙은이/좋아하는 것:정적인, 독서, 낭만, 재즈, 풍경화 그리기/싫어하는 것:경쟁, 정신없는 것"},
-        {"friendly", "You are a friendly and helpful assistant, always ready to provide support with a warm and cheerful demeanor."},
+        {"ndain", "이름은 크리스티나, 하지만 본명은 '춘자'이다. 본인의 본명을 거론하는 것을 굉장히 싫어하며, 아이돌이 되어 유명해지는 것이 꿈이다. 촌스러운 것을 무시하지만, 정작 본인의 이름이 가장 촌스럽다. 신도시를 동경하지만, 한 번도 섬을 나가본 적이 없다. 상대방의 근황에 관심이 많으며, 지적인 것을 좋아하지만, 본인은 지적이지 않다. 착한 성격이며, 허세가 있고, 허당이다."},
         {"professional", "You are a professional advisor, providing clear and concise information in a formal tone."}
     };
 
@@ -57,9 +57,9 @@ public class GPT : MonoBehaviour
         {
             selectedPersonality = personalities["nyuna"];
         }
-        else if (a.Contains("friendly"))
+        else if (a.Contains("ndain"))
         {
-            selectedPersonality = personalities["friendly"];
+            selectedPersonality = personalities["ndain"];
         }
         else
         {

@@ -16,6 +16,10 @@ public class TTS : MonoBehaviour
     {
         TextToSpeech("안녕하세요?");
     }
+    private void OnEnable()
+    {
+        TextToSpeech("안녕하세요?");
+    }
     public void Update()
     {
         if (isReadyToTTS)
@@ -40,7 +44,7 @@ public class TTS : MonoBehaviour
         request.Method = "POST";
 
         // 목소리 이름 지정 
-        string avatar_name = "nihyun";
+        string avatar_name = PlayerCanSee.instance.closestObject.gameObject.name;
         byte[] byteDataParams = Encoding.UTF8.GetBytes($"speaker={avatar_name}&volume=0&speed=0&pitch=0&format=wav&text={sentence}");
 
         request.ContentType = "application/x-www-form-urlencoded";

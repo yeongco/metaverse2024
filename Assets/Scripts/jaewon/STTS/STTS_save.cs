@@ -20,8 +20,9 @@ public class STTS_save : MonoBehaviour
     public PlayerMove playerMove;
     public PlayerCanSee playerCanSee;
     public TalkingUICon talkingUICon;
+    public CreateDiary createDiary;
+    public Text instruction;
     public GameObject player;
-    private string diaries = null;
     private void Start()
     {
         apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
@@ -45,8 +46,6 @@ public class STTS_save : MonoBehaviour
             // ���ڿ��� ���Ͽ� �߰�
             //AppendStringToFile(currentString);
             stringGenerated = false;
-            dialoge = currentString;
-            StartCoroutine(SendRequestToGPT(dialoge));
         }
     }
     void Update()
@@ -54,9 +53,6 @@ public class STTS_save : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("녹화종료");
-            Debug.Log("String appended: " + currentString);
-            AppendStringToFile(currentString);
-
             playerMove.enabled = true;
             player.GetComponent<CharacterController>().enabled = true;
             player.GetComponentInChildren<Animator>().SetBool("IsWalk", true);
@@ -67,7 +63,11 @@ public class STTS_save : MonoBehaviour
             playerCanSee.closestObject.GetComponent<NPCController>().anim.SetBool("LootAt", false);
             playerCanSee.closestObject = null;
             talkingUICon.isWaiting = true;
-            StartCoroutine(SendRequestToGPT(dialoge));
+            AppendStringToFile(currentString);
+            STTSUI.gameObject.SetActive(false);
+            STTS.gameObject.SetActive(false);
+            createDiary.enabled = true;
+            instruction.text = "Space를 눌러 말을 걸어보세요!";
         }
     }
     // ���ο� ���ڿ��� �����ϴ� �޼ҵ�
@@ -102,13 +102,15 @@ public class STTS_save : MonoBehaviour
     //
     public IEnumerator SendRequestToGPT(string prompt)
     {
+        Debug.Log("프롬포트: " + prompt);
+
         string apiUrl = "https://api.openai.com/v1/chat/completions";
         var requestData = new
         {
             model = "gpt-4-turbo", // Use GPT-4 Turbo model
             messages = new[]
             {
-                new { role = "system", content = $"{prompt}의 대화를 유추해서 한국어로 50~70단어의 일기로 작성해줘. 일기가 충분치 않으면 그냥 '일기 없음' 으로 표기해줘" },
+                new { role = "system", content = $"{prompt}의 요약해서 일기로 작성해줘. 정보가 부족하면 '일기가 없습니다'라고 출력해주고, 본인일기처럼 작성해줘" },
                 new { role = "user", content = prompt }
             },
             max_tokens = 2000,
@@ -131,16 +133,14 @@ public class STTS_save : MonoBehaviour
             var jsonResponse = request.downloadHandler.text;
             var response = JsonConvert.DeserializeObject<OpenAIResponse>(jsonResponse);
             Debug.Log("GPT diary : " + response.choices[0].message.content.Trim());
-            diary.text = response.choices[0].message.content.Trim();
             AppendDiaryToFile(response.choices[0].message.content.Trim());
+            createDiary.enabled = false;
         }
         else
         {
             Debug.LogError("Error: " + request.error);
             Debug.LogError("Response: " + request.downloadHandler.text);
         }
-        STTS.gameObject.SetActive(false);
-        STTSUI.gameObject.SetActive(false);
     }
 
     [Serializable]
