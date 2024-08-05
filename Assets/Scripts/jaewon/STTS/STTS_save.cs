@@ -7,6 +7,8 @@ using System.IO;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+
 public class STTS_save : MonoBehaviour
 {
 
@@ -57,10 +59,26 @@ public class STTS_save : MonoBehaviour
             player.GetComponent<CharacterController>().enabled = true;
             player.GetComponentInChildren<Animator>().SetBool("IsWalk", true);
 
-            playerCanSee.closestObject.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().isStopped = false;
-            playerCanSee.closestObject.GetComponent<NPCController>().enabled = true;
-            playerCanSee.closestObject.GetComponent<NPCController>().CurrentState = playerCanSee.closestObject.GetComponent<NPCWalkState>();
-            playerCanSee.closestObject.GetComponent<NPCController>().anim.SetBool("LootAt", false);
+            if (TalkingUICon.instance.talkingNPC.name == "nsangdo")
+            {
+                playerCanSee.closestObject.GetComponent<KimController>().enabled = true;
+                playerCanSee.closestObject.GetComponent<KimController>().CurrentState = playerCanSee.closestObject.GetComponent<KimIdleState>();
+                playerCanSee.closestObject.GetComponent<KimController>().anim.SetBool("LootAt", false);
+            }
+            else if (TalkingUICon.instance.talkingNPC.name == "nyuna")
+            {
+                playerCanSee.closestObject.GetComponent<YunaController>().enabled = true;
+                playerCanSee.closestObject.GetComponent<YunaController>().CurrentState = playerCanSee.closestObject.GetComponent<YunaIdleState>();
+                playerCanSee.closestObject.GetComponent<YunaController>().anim.SetBool("LootAt", false);
+            }
+            else
+            {
+                playerCanSee.closestObject.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().isStopped = false;
+                playerCanSee.closestObject.GetComponent<NPCController>().enabled = true;
+                playerCanSee.closestObject.GetComponent<NPCController>().CurrentState = playerCanSee.closestObject.GetComponent<NPCWalkState>();
+                playerCanSee.closestObject.GetComponent<NPCController>().anim.SetBool("LootAt", false);
+            }
+
             playerCanSee.closestObject = null;
             talkingUICon.isWaiting = true;
             AppendStringToFile(currentString);

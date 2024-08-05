@@ -6,8 +6,10 @@ public class TalkingUICon : MonoBehaviour
 {
     public static TalkingUICon instance;
     public AudioRecorder audioRecorder;
-    GameObject talkingNPC;
+    public GameObject talkingNPC;
     NPCController npcController;
+    KimController kimController;
+    YunaController yunaController;
     public TTS tts;
     public GPT gpt;
     public Text instruction;
@@ -36,21 +38,53 @@ public class TalkingUICon : MonoBehaviour
     private void OnEnable()
     {
         talkingNPC = PlayerCanSee.instance.closestObject;
-        npcController = talkingNPC.GetComponent<NPCController>();
+        if(talkingNPC.name == "nsangdo")
+        {
+            kimController = talkingNPC.GetComponent<KimController>();
+        }else if(talkingNPC.name == "nyuna")
+        {
+            yunaController = talkingNPC.GetComponent<YunaController>();
+        }
+        else
+        {
+            npcController = talkingNPC.GetComponent<NPCController>();
+        }
     }
     public void Update()
     {
         if (!istalking && isWaiting)
         {
             isWaiting = false;
-            npcController.ChangeState(npcController._lootatState);
+            if (talkingNPC.name == "nsangdo")
+            {
+                kimController.ChangeState(kimController._lookatState);
+            }
+            else if (talkingNPC.name == "nyuna")
+            {
+                yunaController.ChangeState(yunaController._lookatState);
+            }
+            else
+            {
+                npcController.ChangeState(npcController._lootatState);
+            }
         }
 
         if (istalking && isRecording)
         {
             instruction.text = "녹음 중...";
             Debug.Log("녹음 중...");
-            npcController.ChangeState(npcController._nodState);
+            if (talkingNPC.name == "nsangdo")
+            {
+                kimController.ChangeState(kimController._nodState);
+            }
+            else if (talkingNPC.name == "nyuna")
+            {
+                yunaController.ChangeState(yunaController._nodState);
+            }
+            else
+            {
+                npcController.ChangeState(npcController._nodState);
+            }
             Recording.gameObject.SetActive(true);
         }
 
@@ -58,13 +92,39 @@ public class TalkingUICon : MonoBehaviour
         {
             Debug.Log("답변 생성 중...");
             instruction.text = "답변 생성 중...";
-            npcController.ChangeState(npcController._thinkState);
+            if (talkingNPC.name == "nsangdo")
+            {
+                kimController.ChangeState(kimController._thinkState);
+            }
+            else if (talkingNPC.name == "nyuna")
+            {
+                yunaController.ChangeState(yunaController._thinkState);
+            }
+            else
+            {
+                npcController.ChangeState(npcController._thinkState);
+            }
+
+            //npcController.ChangeState(npcController._thinkState);
             Recording.gameObject.SetActive(false);
         }
         if (istalking && isTTS)
         {
             Recording.gameObject.SetActive(false);
-            npcController.ChangeState(npcController._lootatState);
+            if (talkingNPC.name == "nsangdo")
+            {
+                kimController.ChangeState(kimController._lookatState);
+            }
+            else if (talkingNPC.name == "nyuna")
+            {
+                yunaController.ChangeState(yunaController._lookatState);
+            }
+            else
+            {
+                npcController.ChangeState(npcController._lootatState);
+            }
+
+            //npcController.ChangeState(npcController._lootatState);
         }
     }
 }

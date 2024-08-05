@@ -99,9 +99,23 @@ public class PlayerCanSee : MonoBehaviour
         this.gameObject.GetComponent<CharacterController>().enabled = false;
         this.gameObject.GetComponentInChildren<Animator>().SetBool("IsWalk", false);
 
-        //closestObject.gameObject.GetComponent<NavMeshAgent>().isStopped = true; // NPC 움직임 멈춤
-        closestObject.gameObject.GetComponent<NPCController>().CurrentState = gameObject.GetComponent<NPCIdleState>();
-        closestObject.gameObject.GetComponent<NPCController>().enabled = false;
+        if (closestObject.name == "nsangdo")
+        {
+            closestObject.gameObject.GetComponent<KimController>().CurrentState = gameObject.GetComponent<KimIdleState>();
+            closestObject.gameObject.GetComponent<KimController>().enabled = false;
+        }
+        else if (closestObject.name == "nyuna")
+        {
+            closestObject.gameObject.GetComponent<YunaController>().CurrentState = gameObject.GetComponent<YunaIdleState>();
+            closestObject.gameObject.GetComponent<YunaController>().enabled = false;
+        }
+        else
+        {
+            closestObject.gameObject.GetComponent<NavMeshAgent>().isStopped = true; // NPC 움직임 멈춤
+            closestObject.gameObject.GetComponent<NPCController>().CurrentState = gameObject.GetComponent<NPCIdleState>();
+            closestObject.gameObject.GetComponent<NPCController>().enabled = false;
+        }
+
         StartCoroutine(RotateTowardsTarget(closestObject, this.gameObject));
         StartCoroutine(RotateTowardsTarget(this.gameObject, closestObject));
     }
