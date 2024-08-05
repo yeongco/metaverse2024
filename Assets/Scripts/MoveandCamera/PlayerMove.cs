@@ -54,7 +54,11 @@ public class PlayerMove : MonoBehaviour
         {
             PlayerCamera.sky = true;
         }
-            
+
+        else if (other.tag == "OceanViewZone")
+        {
+            PlayerCamera.ocean = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -62,6 +66,11 @@ public class PlayerMove : MonoBehaviour
         if (other.tag == "SkyViewZone")
         {
             PlayerCamera.sky = false;
+            PlayerCamera.normal = true;
+        }
+        if (other.tag == "OceanViewZone")
+        {
+            PlayerCamera.ocean = false;
             PlayerCamera.normal = true;
         }
     }

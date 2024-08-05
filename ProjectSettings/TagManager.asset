@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SkyViewZone
   - NPC
+  - OceanViewZone
   layers:
   - Default
   - TransparentFX
