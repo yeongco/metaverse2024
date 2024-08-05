@@ -12,18 +12,23 @@ public class PlayerCamera : MonoBehaviour
     public Vector3 Angle = new Vector3(30f, 0f, 0f);
     public Vector3 Skyposition = new Vector3(0f, 7f, 0f);
     public Vector3 Skyangle = new Vector3(30f, 0f, 0f);
+    public Vector3 Oceanposition = new Vector3(4f, 2f, -6f);
+    public Vector3 Oceanangle = new Vector3(0f, -30f, 0f);
     
     public static bool normal = true;
     public static bool sky = false;
+    public static bool ocean = false;
 
 
     public static Action viewsky;
     public static Action viewquad;
+    public static Action viewocean;
 
     private void Awake()
     {
         viewsky = () => { ViewSky(); };
         viewquad = () => { ViewQuad(); };
+        viewocean = () => { ViewOcean(); };
     }
 
 
@@ -45,13 +50,20 @@ public class PlayerCamera : MonoBehaviour
         {
             ViewSky();
         }
+        else if (ocean)
+        {
+            ViewOcean();
+        }
     }
 
     void ViewQuad()
     {
+        Quaternion currentangle = transform.rotation;
+        Quaternion targetangle = Quaternion.Euler(Angle);
+
         Vector3 capsule = cc.transform.position;
         transform.position = Vector3.Lerp(transform.position, capsule + Quad, Time.deltaTime * Lerppercentage);
-        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, Angle, Time.deltaTime * Lerppercentage);
+        transform.rotation = Quaternion.Lerp(currentangle, targetangle, Time.deltaTime * Lerppercentage);
     }
 
     void ViewSky()
@@ -59,5 +71,15 @@ public class PlayerCamera : MonoBehaviour
         Vector3 capsule = cc.transform.position;
         transform.position = Vector3.Lerp(transform.position, capsule + Skyposition, Time.deltaTime * Lerppercentage);
         transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, Skyangle, Time.deltaTime * Lerppercentage);
+    }
+
+    void ViewOcean()
+    {
+        Quaternion currentangle = transform.rotation;
+        Quaternion targetangle = Quaternion.Euler(Oceanangle);
+
+        Vector3 capsule = cc.transform.position;
+        transform.position = Vector3.Lerp(transform.position, capsule + Oceanposition, Time.deltaTime * Lerppercentage);
+        transform.rotation = Quaternion.Lerp(currentangle, targetangle, Time.deltaTime * Lerppercentage);
     }
 }
