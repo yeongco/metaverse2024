@@ -15,7 +15,7 @@ public class NoPassZone : MonoBehaviour
     // 플레이어가 현재 이 오브젝트와 일정 거리에 있는 상태에서 E키를 누르면 텍스트 표시
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !isInteracting)
+        if (Input.GetKeyDown(KeyCode.E) && !isInteracting && PlayerCanSee.instance.closestObject == null)
         {
             RaycastHit hit;
             if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, interactionDistance))

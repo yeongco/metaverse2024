@@ -1413,7 +1413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 860942751}
-  interactionDistance: 5
+  interactionDistance: 2
   canvas: {fileID: 2061701217}
   interactionText: {fileID: 1669031382}
   message: "\uAC70\uAE34 \uC544\uC9C1 \uC9C0\uB098\uAC08 \uC218 \uC5C6\uB294 \uACF3\uC774\uC57C"
@@ -3978,6 +3978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 3
   gravity: -9.81
+  moveAvailable: 0
   dir: {x: 0, y: 0, z: 0}
 --- !u!54 &860942753
 Rigidbody:
@@ -4480,7 +4481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 860942751}
-  interactionDistance: 5
+  interactionDistance: 2
   canvas: {fileID: 2061701217}
   interactionText: {fileID: 1669031382}
   message: "\uAC70\uAE34 \uC544\uC9C1 \uC9C0\uB098\uAC08 \uC218 \uC5C6\uB294 \uACF3\uC774\uC57C"
@@ -5776,7 +5777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &1152609720
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5790,7 +5791,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 19efad68fd5896f488fd828fb505bd96, type: 3}
   m_Resource: {fileID: 8300000, guid: 19efad68fd5896f488fd828fb505bd96, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.064
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -7145,6 +7146,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2845779275431937956, guid: bb3396e8ba2d64b4d8272b849575cb60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bb3396e8ba2d64b4d8272b849575cb60, type: 3}
       propertyPath: m_Name
       value: 240805_map_BM
@@ -7936,7 +7941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3e30f43cfd824424cb6acad62bb2a957, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.83
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3e30f43cfd824424cb6acad62bb2a957, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8874,9 +8879,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
-    m_FontStyle: 1
+    m_Font: {fileID: 12800000, guid: 1eff1c4894498e246b7a9b0f2d2deb75, type: 3}
+    m_FontSize: 50
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 60
@@ -10370,7 +10375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 860942751}
-  interactionDistance: 5
+  interactionDistance: 2
   canvas: {fileID: 2061701217}
   interactionText: {fileID: 1669031382}
   message: "\uAC70\uAE34 \uC544\uC9C1 \uC9C0\uB098\uAC08 \uC218 \uC5C6\uB294 \uACF3\uC774\uC57C"
@@ -10753,7 +10758,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -11663,11 +11668,11 @@ SceneRoots:
   m_Roots:
   - {fileID: 1938178299}
   - {fileID: 422855375}
+  - {fileID: 860942751}
   - {fileID: 1491597924}
   - {fileID: 2037193076}
   - {fileID: 1436355785}
   - {fileID: 1178391927}
-  - {fileID: 860942751}
   - {fileID: 1803628145}
   - {fileID: 2070144176}
   - {fileID: 2040000806}

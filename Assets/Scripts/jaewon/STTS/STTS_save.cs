@@ -25,7 +25,7 @@ public class STTS_save : MonoBehaviour
     public CreateDiary createDiary;
     public Text instruction;
     public GameObject player;
-    private void Start()
+    private void OnEnable()
     {
         apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
 
@@ -55,9 +55,9 @@ public class STTS_save : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("녹화종료");
-            playerMove.enabled = true;
+            playerMove.moveAvailable = true;
             player.GetComponent<CharacterController>().enabled = true;
-            player.GetComponentInChildren<Animator>().SetBool("IsWalk", true);
+            //player.GetComponentInChildren<Animator>().SetBool("IsWalk", true);
 
             if (TalkingUICon.instance.talkingNPC.name == "nsangdo")
             {
@@ -128,7 +128,7 @@ public class STTS_save : MonoBehaviour
             model = "gpt-4-turbo", // Use GPT-4 Turbo model
             messages = new[]
             {
-                new { role = "system", content = $"{prompt}의 요약해서 일기로 작성해줘. 정보가 부족하면 '일기가 없습니다'라고 출력해주고, 본인일기처럼 작성해줘" },
+                new { role = "system", content = $"{prompt}의 요약해서 일기로 작성해줘.'/'를 기준으로 나눴을때, 홀수번째 내용이 '내'가 한 말이고, 짝수번째 내용이 '대화 상대방'이 한 말이야. 정보가 부족하면 '일기가 없습니다'라고 출력해주고, 본인일기처럼 작성해줘" },
                 new { role = "user", content = prompt }
             },
             max_tokens = 2000,

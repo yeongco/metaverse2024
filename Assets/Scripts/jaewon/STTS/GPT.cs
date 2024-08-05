@@ -111,8 +111,8 @@ public class GPT : MonoBehaviour
             var jsonResponse = request.downloadHandler.text;
             var response = JsonConvert.DeserializeObject<OpenAIResponse>(jsonResponse);
             Debug.Log("GPT 결과 : " + response.choices[0].message.content.Trim());
-            tts.isReadyToTTS = true;
             result = response.choices[0].message.content.Trim();
+            tts.isReadyToTTS = true;
             TalkingUICon.instance.isGenerating = false;
             TalkingUICon.instance.isTTS = true;
             instruction.text = result;

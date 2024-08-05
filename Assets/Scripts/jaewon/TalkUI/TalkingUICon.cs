@@ -32,16 +32,26 @@ public class TalkingUICon : MonoBehaviour
         }
         else
         {
-        instance = this;
+            instance = this;
         }
+    }
+    private void Start()
+    {
+        instruction.text = "Space를 눌러 말을 걸어보세요!";
+        isWaiting = true;
+        istalking = false;
+        isRecording = false;
+        isGenerating = false;
+        isTTS = false;
     }
     private void OnEnable()
     {
         talkingNPC = PlayerCanSee.instance.closestObject;
-        if(talkingNPC.name == "nsangdo")
+        if (talkingNPC.name == "nsangdo")
         {
             kimController = talkingNPC.GetComponent<KimController>();
-        }else if(talkingNPC.name == "nyuna")
+        }
+        else if (talkingNPC.name == "nyuna")
         {
             yunaController = talkingNPC.GetComponent<YunaController>();
         }
@@ -88,10 +98,11 @@ public class TalkingUICon : MonoBehaviour
             Recording.gameObject.SetActive(true);
         }
 
-        if(istalking && isGenerating)
+        if (istalking && isGenerating)
         {
             Debug.Log("답변 생성 중...");
             instruction.text = "답변 생성 중...";
+            isGenerating = false;
             if (talkingNPC.name == "nsangdo")
             {
                 kimController.ChangeState(kimController._thinkState);
@@ -110,7 +121,6 @@ public class TalkingUICon : MonoBehaviour
         }
         if (istalking && isTTS)
         {
-            Recording.gameObject.SetActive(false);
             if (talkingNPC.name == "nsangdo")
             {
                 kimController.ChangeState(kimController._lookatState);
@@ -123,8 +133,6 @@ public class TalkingUICon : MonoBehaviour
             {
                 npcController.ChangeState(npcController._lootatState);
             }
-
-            //npcController.ChangeState(npcController._lootatState);
         }
     }
 }

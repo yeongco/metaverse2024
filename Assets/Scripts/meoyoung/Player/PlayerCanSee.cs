@@ -68,7 +68,6 @@ public class PlayerCanSee : MonoBehaviour
             //closestObject.GetComponent<NPCController>().ChangeState(closestObject.GetComponent<NPCController>()._lootatState);
             //STTS.gameObject.SetActive(true);
             SetMovementUnAvailable();
-            SetSTTSUI(true);
         }
     }
 
@@ -95,9 +94,9 @@ public class PlayerCanSee : MonoBehaviour
     //대화 상대가 감지되면 플레이어의 움직임을 대화 종료까지 금지,NPC는 상태를 idle로 고정, 각종 움직임에 관여하는 스크립트, 컴포넌트 비활성화
     void SetMovementUnAvailable()
     {
-        playerMove.enabled = false;
+        playerMove.moveAvailable = false;
+        playerMove.dir = new Vector3(0, 0, 0);
         this.gameObject.GetComponent<CharacterController>().enabled = false;
-        this.gameObject.GetComponentInChildren<Animator>().SetBool("IsWalk", false);
 
         if (closestObject.name == "nsangdo")
         {
@@ -118,11 +117,9 @@ public class PlayerCanSee : MonoBehaviour
 
         StartCoroutine(RotateTowardsTarget(closestObject, this.gameObject));
         StartCoroutine(RotateTowardsTarget(this.gameObject, closestObject));
-    }
-    void SetSTTSUI(bool set)
-    {
-        STTS.SetActive(set);
-        STTSChatUI.SetActive(set);
+        STTS.SetActive(true);
+        STTSChatUI.SetActive(true);
+        this.gameObject.GetComponentInChildren<Animator>().SetBool("IsWalk", false);
     }
     private IEnumerator RotateTowardsTarget(GameObject a, GameObject b)
     {

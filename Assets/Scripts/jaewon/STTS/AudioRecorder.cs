@@ -14,14 +14,14 @@ public class AudioRecorder : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !TalkingUICon.instance.isRecording && save.stringGenerated)
+        if (Input.GetKeyDown(KeyCode.Space) && !TalkingUICon.instance.isRecording)
         {
             TalkingUICon.instance.istalking = true;
             TalkingUICon.instance.isRecording = true;
             StartRecording();
             Debug.Log("≥Ï»≠ Ω√¿€");
         }
-        if (Input.GetKeyUp(KeyCode.Space) && TalkingUICon.instance.isRecording && save.stringGenerated)
+        if (Input.GetKeyUp(KeyCode.Space) && TalkingUICon.instance.isRecording)
         {
             StopRecording();
             Debug.Log("≥Ï»≠ ¡æ∑·");

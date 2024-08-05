@@ -10,7 +10,7 @@ public class PlayerMove : MonoBehaviour
     float Horizon;
     float Vertic;
     float yVelocity;
-
+    public bool moveAvailable;
     public Vector3 dir;
 
     CharacterController cc;
@@ -18,6 +18,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Awake()
     {
+        moveAvailable = true;
         anim = GetComponentInChildren<Animator>();
     }
     void Start()
@@ -34,17 +35,25 @@ public class PlayerMove : MonoBehaviour
         }
         else { yVelocity = 0; }
 
-        Horizon = Input.GetAxisRaw("Horizontal");
-        Vertic = Input.GetAxisRaw("Vertical");
 
         dir = new Vector3(Horizon, 0, Vertic).normalized;
+        if (moveAvailable)
+        {
+            Horizon = Input.GetAxisRaw("Horizontal");
+            Vertic = Input.GetAxisRaw("Vertical");
+        }
+        else
+        {
+            dir = Vector3.zero;
+        }
+
         anim.SetBool("IsWalk", dir != Vector3.zero);
         transform.LookAt(transform.position + dir);
         dir.y = yVelocity;
 
         cc.Move(dir * Speed * Time.deltaTime);
 
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
