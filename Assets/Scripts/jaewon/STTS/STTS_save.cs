@@ -28,7 +28,6 @@ public class STTS_save : MonoBehaviour
     private void OnEnable()
     {
         apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
-
         // API 키가 설정되지 않은 경우 에러 메시지 출력
         if (string.IsNullOrEmpty(apiKey))
         {
