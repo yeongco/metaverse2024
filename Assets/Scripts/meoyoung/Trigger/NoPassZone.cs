@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,10 +9,10 @@ public class NoPassZone : MonoBehaviour
     public float interactionDistance = 5f;
     public Canvas canvas;
     public Text interactionText;
-    public string message = "°Å±ä ¾ÆÁ÷ Áö³ª°¥ ¼ö ¾ø´Â °÷ÀÌ¾ß";
+    public string message = "ê±°ê¸´ ì•„ì§ ì§€ë‚˜ê°ˆ ìˆ˜ ì—†ëŠ” ê³³ì´ì•¼";
     private bool isInteracting = false;
 
-    // ÇÃ·¹ÀÌ¾î°¡ ÇöÀç ÀÌ ¿ÀºêÁ§Æ®¿Í ÀÏÁ¤ °Å¸®¿¡ ÀÖ´Â »óÅÂ¿¡¼­ EÅ°¸¦ ´©¸£¸é ÅØ½ºÆ® Ç¥½Ã
+    // í”Œë ˆì´ì–´ê°€ í˜„ì¬ ì´ ì˜¤ë¸Œì íŠ¸ì™€ ì¼ì • ê±°ë¦¬ì— ìˆëŠ” ìƒíƒœì—ì„œ Eí‚¤ë¥¼ ëˆ„ë¥´ë©´ í…ìŠ¤íŠ¸ í‘œì‹œ
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && !isInteracting && PlayerCanSee.instance.closestObject == null)
@@ -28,7 +28,7 @@ public class NoPassZone : MonoBehaviour
         }
     }
 
-    // Å°º¸µå·Î ¸Ş¼¼Áö º¸¿©ÁÖ´Â ¿¬Ãâ
+    // í‚¤ë³´ë“œë¡œ ë©”ì„¸ì§€ ë³´ì—¬ì£¼ëŠ” ì—°ì¶œ
     IEnumerator ShowMessage(string message)
     {
         isInteracting = true;
@@ -38,10 +38,10 @@ public class NoPassZone : MonoBehaviour
         foreach (char c in message)
         {
             interactionText.text += c;
-            yield return new WaitForSeconds(0.05f); // Å¸ÀÌÇÎ ¼Óµµ Á¶Àı
+            yield return new WaitForSeconds(0.05f); // íƒ€ì´í•‘ ì†ë„ ì¡°ì ˆ
         }
 
-        yield return new WaitForSeconds(1f); // ¸Ş½ÃÁö¸¦ ÀÏÁ¤ ½Ã°£ µ¿¾È º¸¿©ÁÜ
+        yield return new WaitForSeconds(1f); // ë©”ì‹œì§€ë¥¼ ì¼ì • ì‹œê°„ ë™ì•ˆ ë³´ì—¬ì¤Œ
         canvas.gameObject.SetActive(false);
         isInteracting = false;
     }
