@@ -4120,6 +4120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 3
   gravity: -9.81
+  moveAvailable: 0
   dir: {x: 0, y: 0, z: 0}
 --- !u!54 &860942753
 Rigidbody:
@@ -8764,7 +8765,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 77943856d46361144af58d4e1b381d2b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c42cc5bb66e8df940afa06138eb9c112, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9705,7 +9706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1850193169
 AudioSource:
   m_ObjectHideFlags: 0
