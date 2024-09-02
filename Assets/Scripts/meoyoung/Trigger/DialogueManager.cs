@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private Text dialogues;
     [SerializeField] private List<string> text;
+
+    [HideInInspector] public bool isActivated = false;
     private bool isDialogue = false;
     private int currentCounter = 0; //현재 대사 인덱스
     private WaitForSeconds typingTime = new WaitForSeconds(0.05f); //한 글자씩 타이핑 되는 속도
@@ -17,11 +20,14 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (isActivated)
         {
-            if (!isDialogue)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                ActiveDialogue();
+                if (!isDialogue)
+                {
+                    ActiveDialogue();
+                }
             }
         }
     }
@@ -35,7 +41,16 @@ public class DialogueManager : MonoBehaviour
         {
             dialoguePanel.SetActive(false);
             this.enabled = false;
+            FadeController.Instance.StartFadeIn();
+            isActivated = false;
+            StartCoroutine(StartChangeScene());
         }
+    }
+
+    IEnumerator StartChangeScene()
+    {
+        yield return new WaitForSeconds(1.0f);
+        SceneManager.LoadScene("Main");
     }
 
     // 키보드로 메세지 보여주는 연출
