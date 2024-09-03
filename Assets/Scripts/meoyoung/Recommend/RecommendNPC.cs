@@ -18,10 +18,6 @@ public class RecommendNPC : MonoBehaviour
     // 김씨 : 1
     // 춘자 : 2
     // 철수 : 3
-    private void Start()
-    {
-        Recommend(0, "안녕하세여");
-    }
 
     public void Recommend(int num, string text) // 해당하는 npc를 활성화하고, 받은 text를 tts로 재생함
     {
