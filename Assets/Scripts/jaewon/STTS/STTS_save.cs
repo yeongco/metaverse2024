@@ -127,7 +127,7 @@ public class STTS_save : MonoBehaviour
             model = "gpt-4-turbo", // Use GPT-4 Turbo model
             messages = new[]
             {
-                new { role = "system", content = $"{prompt}의 요약해서 일기로 작성해줘.'/'를 기준으로 나눴을때, 홀수번째 내용이 '내'가 한 말이고, 짝수번째 내용이 '대화 상대방'이 한 말이야. 정보가 부족하면 '일기가 없습니다'라고 출력해주고, 본인일기처럼 작성해줘" },
+                new { role = "system", content = $"{prompt}의 요약해서 일기로 작성해줘.'/'를 기준으로 나눴을때, 홀수번째 내용이 내가 한 말이고, 짝수번째 내용이 '대화 상대방'이 한 말이야. 본인일기처럼 작성해줘. 정보가 부족하면 '대화 내용이 부족합니다'라고 출력해주고" },
                 new { role = "user", content = prompt }
             },
             max_tokens = 2000,

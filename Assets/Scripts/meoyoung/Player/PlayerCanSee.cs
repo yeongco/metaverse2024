@@ -14,6 +14,7 @@ public class PlayerCanSee : MonoBehaviour
     public GameObject closestObject = null;
     private PlayerMove playerMove;
     public GameObject STTSChatUI;
+    public GameObject custom;
     private void Start()
     {
         if (instance != null)
@@ -44,6 +45,13 @@ public class PlayerCanSee : MonoBehaviour
 
         foreach (var hitCollider in hitColliders)
         {
+            if(hitCollider.name == "Fountain")
+            {
+                custom.SetActive(true);
+                Time.timeScale = 0f;
+                Cursor.lockState = CursorLockMode.None; // 커서 락 해제
+                Cursor.visible = true; // 커서 보이게 설정
+            }
             if (hitCollider.CompareTag("NPC"))
             {
                 Vector3 directionToObject = hitCollider.transform.position - transform.position;

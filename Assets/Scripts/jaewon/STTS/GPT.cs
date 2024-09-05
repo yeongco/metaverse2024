@@ -82,8 +82,8 @@ public class GPT : MonoBehaviour
                 new { role = "system", content = $"너는 {selectedPersonality}의 인물 설정에 의한 성격과 말투로 말하는 사람이야. 한국어로 20단어를 넘기지 말아줘" },
                 new { role = "user", content = prompt }
             },
-            max_tokens = 500,
-            temperature = 0.8
+            max_tokens = 300,
+            temperature = 0.6
         };
 
         string jsonData = JsonConvert.SerializeObject(requestData);
