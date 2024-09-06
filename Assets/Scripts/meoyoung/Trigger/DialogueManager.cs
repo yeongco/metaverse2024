@@ -10,9 +10,11 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private Text dialogues;
     [SerializeField] private List<string> text;
+    [SerializeField] private GameObject image;
 
     [HideInInspector] public bool isActivated = false;
     private bool isDialogue = false;
+    private bool isEscapeKeyActivated = false;
     private int currentCounter = 0; //현재 대사 인덱스
     private WaitForSeconds typingTime = new WaitForSeconds(0.05f); //한 글자씩 타이핑 되는 속도
 
@@ -30,10 +32,31 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
+
+        if(isEscapeKeyActivated)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                image.SetActive(false);
+                isEscapeKeyActivated = false;
+                isActivated = true;
+                ActiveDialogue();
+            }
+        }
     }
     public void ActiveDialogue()
     {
-        if(text.Count > currentCounter)
+        if(currentCounter == 7)
+        {
+            dialoguePanel.SetActive(false);
+            isActivated = false;
+            isEscapeKeyActivated = true;
+            image.SetActive(true);
+            currentCounter++;
+            return;
+        }
+
+        if (text.Count > currentCounter)
         {
             StartCoroutine(ActiveDialogueCoroutine());
         }
@@ -56,6 +79,13 @@ public class DialogueManager : MonoBehaviour
     // 키보드로 메세지 보여주는 연출
     private IEnumerator ActiveDialogueCoroutine()
     {
+        if(currentCounter == 4)
+        {
+            isActivated = false;
+            FadeController.Instance.StartFadeOut();
+            yield return new WaitForSeconds(2.0f);
+            isActivated= true;
+        }
         isDialogue = true;
         dialoguePanel.SetActive(true);
         dialogues.text = ""; // 텍스트 초기화
