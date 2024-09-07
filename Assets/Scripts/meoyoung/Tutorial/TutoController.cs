@@ -13,7 +13,6 @@ public class TutoController : MonoBehaviour
 
     IEnumerator StartDialogue()
     {
-        FadeController.Instance.StartFadeOut();
         yield return new WaitForSeconds(1.0f);
         dialogueManager.isActivated = true;
         dialogueManager.ActiveDialogue();
