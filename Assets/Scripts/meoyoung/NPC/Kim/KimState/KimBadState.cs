@@ -11,7 +11,7 @@ public class KimBadState : MonoBehaviour, IKimState
         if (!_kimController)
             _kimController = kimController;
 
-        _kimController.anim.SetBool("Bad", true);
+        //_kimController.anim.SetBool("Bad", true);
     }
     public void OnStateUpdate()
     {
@@ -24,7 +24,7 @@ public class KimBadState : MonoBehaviour, IKimState
 
     public void OnStateExit()
     {
-        _kimController.anim.SetBool("Bad", false);
+        //_kimController.anim.SetBool("Bad", false);
     }
 
 }

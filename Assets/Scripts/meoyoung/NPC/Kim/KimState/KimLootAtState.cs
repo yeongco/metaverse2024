@@ -11,7 +11,7 @@ public class KimLootAtState : MonoBehaviour, IKimState
         if (!_kimController)
             _kimController = kimController;
 
-        _kimController.anim.SetBool("LootAt", true);
+        //_kimController.anim.SetBool("LootAt", true);
 
         lookTimer = 0;
     }
@@ -21,7 +21,7 @@ public class KimLootAtState : MonoBehaviour, IKimState
     public void OnStateUpdate()
     {
         //Debug.Log("NPC LootAt Q");
-        if (Input.GetKeyDown(KeyCode.Space))
+       /* if (Input.GetKeyDown(KeyCode.Space))
         {
             _kimController.ChangeState(_kimController._nodState);
         }
@@ -33,11 +33,11 @@ public class KimLootAtState : MonoBehaviour, IKimState
         else
         {
             lookTimer += Time.deltaTime;
-        }
+        }*/
     }
 
     public void OnStateExit()
     {
-        _kimController.anim.SetBool("LootAt", false);
+        //_kimController.anim.SetBool("LootAt", false);
     }
 }
