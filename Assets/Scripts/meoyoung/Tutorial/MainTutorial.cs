@@ -30,6 +30,8 @@ public class MainTutorial : MonoBehaviour
     private bool isActivated = false;
     private bool isDialogue = false;
     private WaitForSeconds typingTime = new WaitForSeconds(0.05f);
+    public PlayerCamera playercamera;
+    public GameObject Kim;
 
 
     private void Start()
@@ -45,6 +47,9 @@ public class MainTutorial : MonoBehaviour
     {
         if (isActivated)
         {
+            PlayerCamera.state = 3;
+
+            StartCoroutine(playercamera.ViewTalk(Kim, 5.0f));
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (!isDialogue)
@@ -62,6 +67,7 @@ public class MainTutorial : MonoBehaviour
         }
         else
         {
+            PlayerCamera.state = 2;
             dialoguePanel.SetActive(false);
             this.enabled = false;
             isActivated = false;

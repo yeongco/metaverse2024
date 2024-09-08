@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
     float Vertic;
     float yVelocity;
     public bool moveAvailable;
+    public bool Ischair;
     public Vector3 dir;
 
     CharacterController cc;
@@ -29,44 +30,44 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!cc.isGrounded)
+        if (!Ischair)
         {
-            yVelocity += gravity * Time.deltaTime;
+            if (!cc.isGrounded)
+            {
+                yVelocity += gravity * Time.deltaTime;
+            }
+            else { yVelocity = 0; }
+
+
+            dir = new Vector3(Horizon, 0, Vertic).normalized;
+            if (moveAvailable)
+            {
+                Horizon = Input.GetAxisRaw("Horizontal");
+                Vertic = Input.GetAxisRaw("Vertical");
+            }
+            else
+            {
+                dir = Vector3.zero;
+            }
+
+            anim.SetBool("IsWalk", dir != Vector3.zero);
+            transform.LookAt(transform.position + dir);
+            dir.y = yVelocity;
+
+            cc.Move(dir * Speed * Time.deltaTime);
         }
-        else { yVelocity = 0; }
-
-
-        dir = new Vector3(Horizon, 0, Vertic).normalized;
-        if (moveAvailable)
-        {
-            Horizon = Input.GetAxisRaw("Horizontal");
-            Vertic = Input.GetAxisRaw("Vertical");
-        }
-        else
-        {
-            dir = Vector3.zero;
-        }
-
-        anim.SetBool("IsWalk", dir != Vector3.zero);
-        transform.LookAt(transform.position + dir);
-        dir.y = yVelocity;
-
-        cc.Move(dir * Speed * Time.deltaTime);
-
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerCamera.normal = false;
         if (other.tag == "SkyViewZone")
         {
-            PlayerCamera.sky = true;
+            PlayerCamera.state = 1;
         }
 
         else if (other.tag == "OceanViewZone")
         {
-            PlayerCamera.ocean = true;
+            PlayerCamera.state = 2;
         }
     }
 
@@ -74,13 +75,11 @@ public class PlayerMove : MonoBehaviour
     {
         if (other.tag == "SkyViewZone")
         {
-            PlayerCamera.sky = false;
-            PlayerCamera.normal = true;
+            PlayerCamera.state = 0;
         }
         if (other.tag == "OceanViewZone")
         {
-            PlayerCamera.ocean = false;
-            PlayerCamera.normal = true;
+            PlayerCamera.state = 0;
         }
     }
 }
