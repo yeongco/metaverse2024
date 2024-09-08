@@ -85,6 +85,7 @@ public class STTS_save : MonoBehaviour
             STTS.gameObject.SetActive(false);
             createDiary.enabled = true;
             instruction.text = "Space를 눌러 말을 걸어보세요!";
+            PlayerCamera.state = 0;
         }
     }
     // ���ο� ���ڿ��� �����ϴ� �޼ҵ�

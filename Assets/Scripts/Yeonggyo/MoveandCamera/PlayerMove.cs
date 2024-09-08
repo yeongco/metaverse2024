@@ -33,7 +33,7 @@ public class PlayerMove : MonoBehaviour
         {
             yVelocity += gravity * Time.deltaTime;
         }
-        else { yVelocity = 0; }
+        else { yVelocity = 0;}
 
 
         dir = new Vector3(Horizon, 0, Vertic).normalized;
@@ -58,15 +58,14 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerCamera.normal = false;
         if (other.tag == "SkyViewZone")
         {
-            PlayerCamera.sky = true;
+            PlayerCamera.state = 1;
         }
 
         else if (other.tag == "OceanViewZone")
         {
-            PlayerCamera.ocean = true;
+            PlayerCamera.state = 2;
         }
     }
 
@@ -74,13 +73,11 @@ public class PlayerMove : MonoBehaviour
     {
         if (other.tag == "SkyViewZone")
         {
-            PlayerCamera.sky = false;
-            PlayerCamera.normal = true;
+            PlayerCamera.state = 0;
         }
         if (other.tag == "OceanViewZone")
         {
-            PlayerCamera.ocean = false;
-            PlayerCamera.normal = true;
+            PlayerCamera.state = 0;
         }
     }
 }

@@ -67,14 +67,10 @@ public class PlayerCanSee : MonoBehaviour
                     {
                         closestDistance = distanceToObject;
                         closestObject = hitCollider.gameObject;
-                        
+
                         //카메라 설정 추가
-                       /* PlayerCamera.sky = false;
-                        PlayerCamera.ocean = false;
-                        PlayerCamera.normal = false;
-                        StartCoroutine(playerCamera.ViewTalk(closestObject));
-                        
-                        PlayerCamera.viewtalk(closestObject);*/
+                        PlayerCamera.state = 3;
+                        StartCoroutine(playerCamera.ViewTalk(closestObject, 3));
 
                     }
                 }
@@ -136,13 +132,7 @@ public class PlayerCanSee : MonoBehaviour
 
         StartCoroutine(RotateTowardsTarget(closestObject, this.gameObject));
         StartCoroutine(RotateTowardsTarget(this.gameObject, closestObject));
-        //카메라 설정 추가
-/*        PlayerCamera.sky = false;
-        PlayerCamera.ocean = false;
-        PlayerCamera.normal = false;
-        StartCoroutine(playerCamera.ViewTalk(closestObject));
 
-        PlayerCamera.viewtalk(closestObject);*/
         STTS.SetActive(true);
         STTSChatUI.SetActive(true);
         this.gameObject.GetComponentInChildren<Animator>().SetBool("IsWalk", false);
