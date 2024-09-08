@@ -11,7 +11,7 @@ public class YunaLootAtState : MonoBehaviour, IYunaState
         if (!_yunaController)
             _yunaController = yunaController;
 
-        _yunaController.anim.SetBool("LootAt", true);
+        _yunaController.anim.SetBool("Lookat", true);
 
         lookTimer = 0;
     }
@@ -21,10 +21,10 @@ public class YunaLootAtState : MonoBehaviour, IYunaState
     public void OnStateUpdate()
     {
         //Debug.Log("NPC LootAt Q");
-        if (Input.GetKeyDown(KeyCode.Space))
+        /*if (Input.GetKeyDown(KeyCode.Space))
         {
             _yunaController.ChangeState(_yunaController._nodState);
-        }
+        }*/
 
         if (lookTimer >= 3f)
         {
@@ -38,6 +38,6 @@ public class YunaLootAtState : MonoBehaviour, IYunaState
 
     public void OnStateExit()
     {
-        _yunaController.anim.SetBool("LootAt", false);
+        _yunaController.anim.SetBool("Lookat", false);
     }
 }

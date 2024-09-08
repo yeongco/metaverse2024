@@ -19,14 +19,14 @@ public class YunaThinkState : MonoBehaviour, IYunaState
     public void OnStateUpdate()
     {
         //Debug.Log("NPC Think Q E");
-        if (Input.GetKeyDown(KeyCode.Q))
+        /*if (Input.GetKeyDown(KeyCode.Q))
         {
             _yunaController.ChangeState(_yunaController._goodState);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             _yunaController.ChangeState(_yunaController._badState);
-        }
+        }*/
     }
 
     public void OnStateExit()
