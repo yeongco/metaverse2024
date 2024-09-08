@@ -21,7 +21,8 @@ public class RecommendNPC : MonoBehaviour
 
     private void Start()
     {
-        Recommend(0, "안녕하세요");
+        Debug.Log(GameManager.Instance.maxPerson);
+        Recommend(GameManager.Instance.maxPerson, "안녕? 도란도의 생활은 재밌었어? 너와 함께라서 행복했어. 너도 늘 하늘하늘한 기분과 함께 행복하면 좋겠네. 고마워.");
     }
 
     public void Recommend(int num, string text) // 해당하는 npc를 활성화하고, 받은 text를 tts로 재생함

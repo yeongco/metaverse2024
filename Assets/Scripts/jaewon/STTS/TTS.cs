@@ -10,13 +10,6 @@ using Newtonsoft.Json;
 using UnityEditor.PackageManager;
 using UnityEditor;
 using UnityEngine.UIElements;
-public enum _sentiment
-{
-    nyuna = 0,
-    ndain = 1,
-    nminsang = 2,
-    nsangdo = 3
-}
 
 public class TTS : MonoBehaviour
 {
@@ -185,6 +178,18 @@ public class TTS : MonoBehaviour
             GameManager.Instance.sentiment[positiveValue] = positive;
         }
         Debug.Log(name + "±àÁ¤ ÃÖ´ñ°ª = " + GameManager.Instance.sentiment[positiveValue]);
+        GetMaxPositive();
+    }
+    public void GetMaxPositive()
+    {
+        int a = -100;
+        for (int i = 0; i < GameManager.Instance.sentiment.Length; i++)
+        {
+            if (GameManager.Instance.sentiment[i] > a)
+            {
+                GameManager.Instance.maxPerson = i;
+            }
+        }
     }
 }
 

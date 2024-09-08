@@ -103,6 +103,7 @@ public class PlayerCanSee : MonoBehaviour
         {
             if(GameManager.Instance.talkingTimes >= 30)
             {
+
                 SceneManager.LoadScene("Recommend");
                 return;
             }

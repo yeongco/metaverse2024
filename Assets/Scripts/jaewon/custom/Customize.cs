@@ -49,12 +49,12 @@ public class Customize : MonoBehaviour
     }
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             StartRecording();
             Debug.Log("≥Ï»≠ Ω√¿€");
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Q))
         {
             StopRecording();
             Debug.Log("≥Ï»≠ ¡æ∑·");
