@@ -62,7 +62,7 @@ public class STTS_save : MonoBehaviour
             {
                 playerCanSee.closestObject.GetComponent<KimController>().enabled = true;
                 playerCanSee.closestObject.GetComponent<KimController>().CurrentState = playerCanSee.closestObject.GetComponent<KimIdleState>();
-                playerCanSee.closestObject.GetComponent<KimController>().anim.SetBool("LootAt", false);
+                //playerCanSee.closestObject.GetComponent<KimController>().anim.SetBool("LootAt", false);
             }
             else if (TalkingUICon.instance.talkingNPC.name == "nyuna")
             {

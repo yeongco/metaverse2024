@@ -4180,6 +4180,7 @@ MonoBehaviour:
   STTS: {fileID: 836351897}
   closestObject: {fileID: 0}
   STTSChatUI: {fileID: 1396947868}
+  custom: {fileID: 0}
 --- !u!1 &881579857
 GameObject:
   m_ObjectHideFlags: 0
@@ -11104,7 +11105,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 481747a12035a234eac547cec346e4d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11388,7 +11389,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 481747a12035a234eac547cec346e4d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

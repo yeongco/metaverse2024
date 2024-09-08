@@ -117,6 +117,7 @@ public class GPT : MonoBehaviour
             instruction.text = result;
             save.currentString += result + "/";
             Debug.Log("대화 내용 = " + save.currentString);
+            GameManager.Instance.talkingTimes += 1;
         }
         else
         {

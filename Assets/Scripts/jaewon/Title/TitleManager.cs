@@ -12,7 +12,7 @@ public class TitleManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Tutorial");
         }
     }
 }

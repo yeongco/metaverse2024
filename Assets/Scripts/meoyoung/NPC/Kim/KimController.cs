@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class KimController : MonoBehaviour
 {
-    public Animator anim;
+   // public Animator anim;
 
     public IKimState CurrentState
     {
