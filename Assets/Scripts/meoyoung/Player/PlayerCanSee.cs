@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.SceneManagement;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class PlayerCanSee : MonoBehaviour
 {
@@ -64,7 +64,6 @@ public class PlayerCanSee : MonoBehaviour
                     {
                         closestDistance = distanceToObject;
                         closestObject = hitCollider.gameObject;
-                        GetClosestObject();
                     }
                 }
             }
@@ -93,12 +92,6 @@ public class PlayerCanSee : MonoBehaviour
         }
     }
 
-
-    // Log창에 플레이어에게 탐지된 NPC 출력
-    void GetClosestObject()
-    {
-        Debug.Log(closestObject);
-    }
     //대화 상대가 감지되면 플레이어의 움직임을 대화 종료까지 금지,NPC는 상태를 idle로 고정, 각종 움직임에 관여하는 스크립트, 컴포넌트 비활성화
     void SetMovementUnAvailable()
     {
@@ -108,6 +101,11 @@ public class PlayerCanSee : MonoBehaviour
 
         if (closestObject.name == "nsangdo")
         {
+            if(GameManager.Instance.talkingTimes >= 30)
+            {
+                SceneManager.LoadScene("Recommend");
+                return;
+            }
             closestObject.gameObject.GetComponent<KimController>().CurrentState = gameObject.GetComponent<KimIdleState>();
             closestObject.gameObject.GetComponent<KimController>().enabled = false;
         }
