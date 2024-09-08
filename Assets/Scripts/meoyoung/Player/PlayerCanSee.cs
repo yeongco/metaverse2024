@@ -76,8 +76,6 @@ public class PlayerCanSee : MonoBehaviour
                         
                         PlayerCamera.viewtalk(closestObject);*/
 
-                        GetClosestObject();
-
                     }
                 }
             }

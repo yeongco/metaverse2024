@@ -3355,6 +3355,7 @@ MonoBehaviour:
   - -1
   - -1
   talkingTimes: 0
+  maxPerson: -100
 --- !u!4 &604947834
 Transform:
   m_ObjectHideFlags: 0
@@ -6000,6 +6001,7 @@ GameObject:
   - component: {fileID: 860942753}
   - component: {fileID: 860942754}
   - component: {fileID: 860942755}
+  - component: {fileID: 860942756}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6200,6 +6202,20 @@ MonoBehaviour:
   closestObject: {fileID: 0}
   STTSChatUI: {fileID: 1396947868}
   custom: {fileID: 1272392897}
+  playerCamera: {fileID: 1803628146}
+--- !u!114 &860942756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860942746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65f828a6b31adb4d9ee07da1759bb8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 818470132}
 --- !u!1 &881579857
 GameObject:
   m_ObjectHideFlags: 0
