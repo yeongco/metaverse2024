@@ -15,6 +15,8 @@ public class PlayerCanSee : MonoBehaviour
     private PlayerMove playerMove;
     public GameObject STTSChatUI;
     public GameObject custom;
+    public PlayerCamera playerCamera;
+
     private void Start()
     {
         if (instance != null)
@@ -52,6 +54,7 @@ public class PlayerCanSee : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None; // 커서 락 해제
                 Cursor.visible = true; // 커서 보이게 설정
             }
+
             if (hitCollider.CompareTag("NPC"))
             {
                 Vector3 directionToObject = hitCollider.transform.position - transform.position;
@@ -64,6 +67,14 @@ public class PlayerCanSee : MonoBehaviour
                     {
                         closestDistance = distanceToObject;
                         closestObject = hitCollider.gameObject;
+                        //카메라 설정 추가
+                       /* PlayerCamera.sky = false;
+                        PlayerCamera.ocean = false;
+                        PlayerCamera.normal = false;
+                        StartCoroutine(playerCamera.ViewTalk(closestObject));
+                        
+                        PlayerCamera.viewtalk(closestObject);*/
+
                         GetClosestObject();
                     }
                 }
@@ -125,6 +136,13 @@ public class PlayerCanSee : MonoBehaviour
 
         StartCoroutine(RotateTowardsTarget(closestObject, this.gameObject));
         StartCoroutine(RotateTowardsTarget(this.gameObject, closestObject));
+        //카메라 설정 추가
+/*        PlayerCamera.sky = false;
+        PlayerCamera.ocean = false;
+        PlayerCamera.normal = false;
+        StartCoroutine(playerCamera.ViewTalk(closestObject));
+
+        PlayerCamera.viewtalk(closestObject);*/
         STTS.SetActive(true);
         STTSChatUI.SetActive(true);
         this.gameObject.GetComponentInChildren<Animator>().SetBool("IsWalk", false);
