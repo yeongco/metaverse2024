@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,11 @@ public class PlayerCanSee : MonoBehaviour
     public GameObject STTSChatUI;
     public GameObject custom;
     public PlayerCamera playerCamera;
+    public Animator animator;
+    public bool IsChair = false;
+    GameObject Chair = null;
+
+    public bool chairdebug = false;
 
     private void Start()
     {
@@ -44,45 +50,60 @@ public class PlayerCanSee : MonoBehaviour
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionDistance);
         float closestDistance = Mathf.Infinity;
-
-        foreach (var hitCollider in hitColliders)
+        if (!IsChair)
         {
-            if(hitCollider.name == "Fountain")
+            foreach (var hitCollider in hitColliders)
             {
-                custom.SetActive(true);
-                Time.timeScale = 0f;
-                Cursor.lockState = CursorLockMode.None; // 커서 락 해제
-                Cursor.visible = true; // 커서 보이게 설정
-            }
-
-            if (hitCollider.CompareTag("NPC"))
-            {
-                Vector3 directionToObject = hitCollider.transform.position - transform.position;
-                float angle = Vector3.Angle(transform.forward, directionToObject);
-
-                if (angle < detectionAngle)
+                if (hitCollider.name == "Fountain")
                 {
-                    float distanceToObject = directionToObject.magnitude;
-                    if (distanceToObject < closestDistance)
+                    custom.SetActive(true);
+                    Time.timeScale = 0f;
+                    Cursor.lockState = CursorLockMode.None; // 커서 락 해제
+                    Cursor.visible = true; // 커서 보이게 설정
+                }
+
+                if (hitCollider.CompareTag("NPC"))
+                {
+                    Vector3 directionToObject = hitCollider.transform.position - transform.position;
+                    float angle = Vector3.Angle(transform.forward, directionToObject);
+
+                    if (angle < detectionAngle)
                     {
-                        closestDistance = distanceToObject;
-                        closestObject = hitCollider.gameObject;
+                        float distanceToObject = directionToObject.magnitude;
+                        if (distanceToObject < closestDistance)
+                        {
+                            closestDistance = distanceToObject;
+                            closestObject = hitCollider.gameObject;
 
-                        //카메라 설정 추가
-                        PlayerCamera.state = 3;
-                        StartCoroutine(playerCamera.ViewTalk(closestObject, 3));
+                            //카메라 설정 추가
+                            PlayerCamera.state = 3;
+                            StartCoroutine(playerCamera.ViewTalk(closestObject, 3));
 
+                        }
                     }
                 }
+
+                else if (hitCollider.CompareTag("Chair"))
+                {
+                    Chair = hitCollider.gameObject;
+                    Chair.GetComponent<MeshCollider>().enabled = false;
+                    SitDown();
+                }
+            }
+
+
+            if (closestObject != null)
+            {
+                Debug.Log(closestObject.gameObject.name);
+                //closestObject.GetComponent<NPCController>().ChangeState(closestObject.GetComponent<NPCController>()._lootatState);
+                //STTS.gameObject.SetActive(true);
+                SetMovementUnAvailable();
             }
         }
 
-        if (closestObject != null)
+        if (IsChair && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log(closestObject.gameObject.name);
-            //closestObject.GetComponent<NPCController>().ChangeState(closestObject.GetComponent<NPCController>()._lootatState);
-            //STTS.gameObject.SetActive(true);
-            SetMovementUnAvailable();
+            StandUp();
         }
     }
 
@@ -109,7 +130,7 @@ public class PlayerCanSee : MonoBehaviour
 
         if (closestObject.name == "nsangdo")
         {
-            if(GameManager.Instance.talkingTimes >= 30)
+            if (GameManager.Instance.talkingTimes >= 30)
             {
 
                 SceneManager.LoadScene("Recommend");
@@ -162,6 +183,34 @@ public class PlayerCanSee : MonoBehaviour
 
             // 한 프레임 대기
             yield return null;
+        }
+    }
+
+    //의자 관련
+    void SitDown()
+    {
+        GetComponent<PlayerMove>().Ischair = true;
+        animator.SetTrigger("Sitting");
+        IsChair = true;
+    }
+
+    void RealStandUp()
+    {
+        animator.SetTrigger("Standing");
+        Chair.GetComponent<MeshCollider>().enabled = true;
+        chairdebug = false;
+        Chair = null;
+    }
+
+    void StandUp()
+    {
+        if (chairdebug)
+        {
+            RealStandUp();
+        }
+        else
+        {
+            chairdebug = true;
         }
     }
 }
