@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class RecommendNPC : MonoBehaviour
 {
+    public RecommandDialogue2 recommandDialogue2;
     [Tooltip("모든 NPC 넣어주면 돼요")]
     [SerializeField] List<GameObject> npc;
 
@@ -24,7 +25,13 @@ public class RecommendNPC : MonoBehaviour
         Debug.Log(GameManager.Instance.maxPerson);
         Recommend(GameManager.Instance.maxPerson, "안녕? 도란도의 생활은 재밌었어? 너와 함께라서 행복했어. 너도 늘 하늘하늘한 기분과 함께 행복하면 좋겠네. 고마워.");
     }
-
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            recommandDialogue2.enabled = true;
+        }
+    }
     public void Recommend(int num, string text) // 해당하는 npc를 활성화하고, 받은 text를 tts로 재생함
     {
         if (num >= 0 && num <= npc.Count - 1)

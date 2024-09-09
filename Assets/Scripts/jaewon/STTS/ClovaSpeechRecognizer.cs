@@ -35,6 +35,7 @@ public class ClovaSpeechRecognizer : MonoBehaviour
         {
             string result = ExtractValueFromJson(request.downloadHandler.text);
             Debug.Log(result);
+            GameManager.Instance.talkings += result + "/";
             getResult = result;
             save.currentString += getResult + "/";
             gpt.isReadyToGetGPT = true;

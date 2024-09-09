@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 public enum _sentiment
 {
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     public float[] sentiment;
     public int talkingTimes = 0;
     public int maxPerson = -100;
+    public string talkings;
+    public string result;
     private void Start()
     {
         Instance = this;
